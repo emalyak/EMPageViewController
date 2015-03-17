@@ -13,6 +13,7 @@
 		80771EF11AB7CBCD00DCAB36 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80771EF01AB7CBCD00DCAB36 /* Images.xcassets */; };
 		80771EF41AB7CBCD00DCAB36 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80771EF21AB7CBCD00DCAB36 /* LaunchScreen.xib */; };
 		80771F001AB7CBCD00DCAB36 /* EMPageViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80771EFF1AB7CBCD00DCAB36 /* EMPageViewControllerTests.swift */; };
+		80771F0A1AB7D8BD00DCAB36 /* EMPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80771F091AB7D8BD00DCAB36 /* EMPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		80771EF91AB7CBCD00DCAB36 /* EMPageViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMPageViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		80771EFE1AB7CBCD00DCAB36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80771EFF1AB7CBCD00DCAB36 /* EMPageViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EMPageViewControllerTests.swift; sourceTree = "<group>"; };
+		80771F091AB7D8BD00DCAB36 /* EMPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		80771EE21AB7CBCD00DCAB36 /* EMPageViewController */ = {
 			isa = PBXGroup;
 			children = (
+				80771F091AB7D8BD00DCAB36 /* EMPageViewController.swift */,
 				80771EE51AB7CBCD00DCAB36 /* AppDelegate.swift */,
 				80771EE71AB7CBCD00DCAB36 /* RootViewController.swift */,
 				80771EED1AB7CBCD00DCAB36 /* Main.storyboard */,
@@ -214,6 +217,7 @@
 			files = (
 				80771EE81AB7CBCD00DCAB36 /* RootViewController.swift in Sources */,
 				80771EE61AB7CBCD00DCAB36 /* AppDelegate.swift in Sources */,
+				80771F0A1AB7D8BD00DCAB36 /* EMPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

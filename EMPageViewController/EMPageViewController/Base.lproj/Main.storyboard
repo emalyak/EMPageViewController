@@ -22,5 +22,36 @@
             </objects>
             <point key="canvasLocation" x="-101" y="-243"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="WWm-YP-mly">
+            <objects>
+                <viewController storyboardIdentifier="DemoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rVN-AO-G4f" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2NB-3t-aZO"/>
+                        <viewControllerLayoutGuide type="bottom" id="oB4-OC-Axw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ysx-UR-Tjy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Demo View Controller" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mV2-kR-8t1">
+                                <rect key="frame" x="45" y="271" width="230" height="27"/>
+                                <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="mV2-kR-8t1" secondAttribute="centerY" id="8Vp-MU-phQ"/>
+                            <constraint firstAttribute="centerX" secondItem="mV2-kR-8t1" secondAttribute="centerX" id="ep2-mY-HkX"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frt-Fl-6Yh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="737" y="-243"/>
+        </scene>
     </scenes>
 </document>
