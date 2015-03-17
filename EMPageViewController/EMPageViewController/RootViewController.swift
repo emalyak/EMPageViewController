@@ -11,6 +11,8 @@ import UIKit
 class RootViewController: UIViewController, EMPageViewControllerDataSource {
 
     var pageViewController:EMPageViewController?
+    
+    var viewControllerGreetings:[String] = ["Hello!", "¡Hola!", "Salut!", "Hallo!", "Ciao!"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +22,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource {
         pageViewController.dataSource = self
         
         // Set the initially selected view controller
-        let currentViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DemoViewController") as UIViewController
-        currentViewController.view.backgroundColor = UIColor(red: 52.0/255.0, green: 73.0/255.0, blue: 94.0/255.0, alpha: 1.0)
+        let currentViewController = self.viewControllerAtIndex(0)!
         pageViewController.setCurrentViewController(currentViewController, animated: false, completion: nil)
         
         // Add EMPageViewController to the root view controller
@@ -36,16 +37,41 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource {
     // MARK: - EMPageViewController Data Source
     
     func em_pageViewController(pageViewController: EMPageViewController, viewControllerLeftOfViewController viewController: UIViewController) -> UIViewController? {
-        let leftViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DemoViewController") as UIViewController
-        leftViewController.view.backgroundColor = UIColor(red: 52.0/255.0, green: 152.0/255.0, blue: 219.0/255.0, alpha: 1.0)
-        return leftViewController
+        if let viewControllerIndex = self.indexOfViewController(viewController as GreetingViewController) {
+            let leftViewController = self.viewControllerAtIndex(viewControllerIndex - 1)
+            return leftViewController
+        } else {
+            return nil
+        }
     }
     
     func em_pageViewController(pageViewController: EMPageViewController, viewControllerRightOfViewController viewController: UIViewController) -> UIViewController? {
-        let rightViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DemoViewController") as UIViewController
-        rightViewController.view.backgroundColor = UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0)
-        return rightViewController
+        if let viewControllerIndex = self.indexOfViewController(viewController as GreetingViewController) {
+            let rightViewController = self.viewControllerAtIndex(viewControllerIndex + 1)
+            return rightViewController
+        } else {
+            return nil
+        }
     }
+    
+    func viewControllerAtIndex(index: Int) -> GreetingViewController? {
+        if (self.viewControllerGreetings.count == 0) || (index < 0) || (index >= self.viewControllerGreetings.count) {
+            return nil
+        }
+        
+        let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("GreetingViewController") as GreetingViewController
+        viewController.greeting = self.viewControllerGreetings[index]
+        return viewController
+    }
+    
+    func indexOfViewController(viewController: GreetingViewController) -> Int? {
+        if let greeting: String = viewController.greeting {
+            return find(self.viewControllerGreetings, greeting)
+        } else {
+            return nil
+        }
+    }
+
 
 }
 

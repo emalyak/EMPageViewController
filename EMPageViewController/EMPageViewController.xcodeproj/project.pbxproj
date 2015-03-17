@@ -14,6 +14,7 @@
 		80771EF41AB7CBCD00DCAB36 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80771EF21AB7CBCD00DCAB36 /* LaunchScreen.xib */; };
 		80771F001AB7CBCD00DCAB36 /* EMPageViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80771EFF1AB7CBCD00DCAB36 /* EMPageViewControllerTests.swift */; };
 		80771F0A1AB7D8BD00DCAB36 /* EMPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80771F091AB7D8BD00DCAB36 /* EMPageViewController.swift */; };
+		80CE6A4D1AB8E16A004DDDC1 /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CE6A4C1AB8E16A004DDDC1 /* GreetingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		80771EFE1AB7CBCD00DCAB36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80771EFF1AB7CBCD00DCAB36 /* EMPageViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EMPageViewControllerTests.swift; sourceTree = "<group>"; };
 		80771F091AB7D8BD00DCAB36 /* EMPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMPageViewController.swift; sourceTree = "<group>"; };
+		80CE6A4C1AB8E16A004DDDC1 /* GreetingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				80771F091AB7D8BD00DCAB36 /* EMPageViewController.swift */,
 				80771EE51AB7CBCD00DCAB36 /* AppDelegate.swift */,
 				80771EE71AB7CBCD00DCAB36 /* RootViewController.swift */,
+				80CE6A4C1AB8E16A004DDDC1 /* GreetingViewController.swift */,
 				80771EED1AB7CBCD00DCAB36 /* Main.storyboard */,
 				80771EF01AB7CBCD00DCAB36 /* Images.xcassets */,
 				80771EF21AB7CBCD00DCAB36 /* LaunchScreen.xib */,
@@ -218,6 +221,7 @@
 				80771EE81AB7CBCD00DCAB36 /* RootViewController.swift in Sources */,
 				80771EE61AB7CBCD00DCAB36 /* AppDelegate.swift in Sources */,
 				80771F0A1AB7D8BD00DCAB36 /* EMPageViewController.swift in Sources */,
+				80CE6A4D1AB8E16A004DDDC1 /* GreetingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +415,7 @@
 				80771F051AB7CBCD00DCAB36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		80771F061AB7CBCD00DCAB36 /* Build configuration list for PBXNativeTarget "EMPageViewControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +424,7 @@
 				80771F081AB7CBCD00DCAB36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

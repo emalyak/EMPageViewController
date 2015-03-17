@@ -40,7 +40,7 @@ protocol EMPageViewControllerDelegate {
     func em_pageViewController(pageViewController:EMPageViewController, isTransitioningFrom startingViewController:UIViewController, destinationViewController:UIViewController, progress:Float)
 }
 
-class EMPageViewController: UIViewController {
+class EMPageViewController: UIViewController, UIScrollViewDelegate {
     
     var dataSource:EMPageViewControllerDataSource?
 
@@ -62,6 +62,7 @@ class EMPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.scrollView.delegate = self
         self.view.addSubview(scrollView)
     }
     
@@ -73,20 +74,18 @@ class EMPageViewController: UIViewController {
         
         if (dataSource != nil) {
             
-            let beforeViewController = self.dataSource!.em_pageViewController(self, viewControllerLeftOfViewController: viewController)
-            if (beforeViewController != nil) {
-                self.scrollView.addSubview(beforeViewController!.view)
-                self.addChildViewController(beforeViewController!)
-                beforeViewController!.didMoveToParentViewController(self)
-                self.leftViewController = beforeViewController!
+            if let leftViewController = self.dataSource!.em_pageViewController(self, viewControllerLeftOfViewController: viewController) {
+                self.scrollView.addSubview(leftViewController.view)
+                self.addChildViewController(leftViewController)
+                leftViewController.didMoveToParentViewController(self)
+                self.leftViewController = leftViewController
             }
             
-            let afterViewController = self.dataSource!.em_pageViewController(self, viewControllerRightOfViewController: viewController)
-            if (afterViewController != nil) {
-                self.scrollView.addSubview(afterViewController!.view)
-                self.addChildViewController(afterViewController!)
-                afterViewController!.didMoveToParentViewController(self)
-                self.rightViewController = afterViewController!
+            if let rightViewController = self.dataSource!.em_pageViewController(self, viewControllerRightOfViewController: viewController) {
+                self.scrollView.addSubview(rightViewController.view)
+                self.addChildViewController(rightViewController)
+                rightViewController.didMoveToParentViewController(self)
+                self.rightViewController = rightViewController
             }
 
         }
