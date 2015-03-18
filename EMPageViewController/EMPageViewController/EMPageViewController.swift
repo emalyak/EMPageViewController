@@ -40,6 +40,12 @@ protocol EMPageViewControllerDelegate {
     func em_pageViewController(pageViewController:EMPageViewController, isTransitioningFrom startingViewController:UIViewController, destinationViewController:UIViewController, progress:Float)
 }
 
+enum EMPageViewControllerNavigationDirection : Int {
+    case Neutral
+    case Forward
+    case Reverse
+}
+
 class EMPageViewController: UIViewController, UIScrollViewDelegate {
     
     var dataSource:EMPageViewControllerDataSource?
@@ -58,6 +64,7 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
     private var currentViewController:UIViewController?
     private var rightViewController:UIViewController?
     
+    private var navigationDirection:EMPageViewControllerNavigationDirection = .Neutral
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,62 +74,166 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setCurrentViewController(viewController:UIViewController, animated:Bool, completion:(()->())?) {
+        
+        // Scrolled right
+        if (viewController == self.rightViewController) {
+            
+            // Release the old left controller
+            self.removeViewControllerIfNeeded(self.leftViewController)
+            
+            // Set new left controller as the old current controller
+            self.leftViewController = self.currentViewController
+            
+            // Set the new current controller as the old right controller
+            self.currentViewController = self.rightViewController
+            
+            println("current: \((self.currentViewController as GreetingViewController).greeting)")
+            
+            // Get the new right controller from the data source if available
+            if self.dataSource != nil {
+                if let rightViewController = self.dataSource!.em_pageViewController(self, viewControllerRightOfViewController: viewController) {
+                    self.rightViewController = rightViewController
+                }
+            }
+        
+        // Scrolled left
+        } else if (viewController == self.leftViewController) {
+            
+            // Release the old left controller
+            self.removeViewControllerIfNeeded(self.rightViewController)
+            
+            // Set new right controller as the old current controller
+            self.rightViewController = self.currentViewController
+            
+            // Set the new current controller as the old left controller
+            self.currentViewController = self.leftViewController
+            
+            // Get the new left controller from the data source if available
+            if self.dataSource != nil {
+                if let leftViewController = self.dataSource!.em_pageViewController(self, viewControllerLeftOfViewController: viewController) {
+                    self.leftViewController = leftViewController
+                }
+            }
+        
+        // Scrolled but ended up where started
+        } else if (viewController == self.currentViewController) {
+            
+            self.removeViewControllerIfNeeded(self.leftViewController)
+            self.removeViewControllerIfNeeded(self.rightViewController)
+            
+        // Initialized
+        } else {
+            
+            self.currentViewController = viewController
+            self.addViewControllerIfNeeded(self.currentViewController!)
+            
+            if self.dataSource != nil {
+                
+                if let leftViewController = self.dataSource!.em_pageViewController(self, viewControllerLeftOfViewController: viewController) {
+                    self.leftViewController = leftViewController
+                }
+                
+                if let rightViewController = self.dataSource!.em_pageViewController(self, viewControllerRightOfViewController: viewController) {
+                    self.rightViewController = rightViewController
+                }
+                
+            }
+            
+        }
+        
+        self.navigationDirection = .Neutral
+                
+    }
+    
+    func addViewControllerIfNeeded(viewController:UIViewController) {
         self.scrollView.addSubview(viewController.view)
         self.addChildViewController(viewController)
         viewController.didMoveToParentViewController(self)
-        self.currentViewController = viewController
-        
-        if (dataSource != nil) {
-            
-            if let leftViewController = self.dataSource!.em_pageViewController(self, viewControllerLeftOfViewController: viewController) {
-                self.scrollView.addSubview(leftViewController.view)
-                self.addChildViewController(leftViewController)
-                leftViewController.didMoveToParentViewController(self)
-                self.leftViewController = leftViewController
-            }
-            
-            if let rightViewController = self.dataSource!.em_pageViewController(self, viewControllerRightOfViewController: viewController) {
-                self.scrollView.addSubview(rightViewController.view)
-                self.addChildViewController(rightViewController)
-                rightViewController.didMoveToParentViewController(self)
-                self.rightViewController = rightViewController
-            }
-
-        }
-
+    }
+    
+    func removeViewControllerIfNeeded(viewController:UIViewController?) {
+        viewController?.view.removeFromSuperview()
+        viewController?.didMoveToParentViewController(nil)
+        viewController?.removeFromParentViewController()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
         self.scrollView.frame = self.view.bounds
+        self.scrollView.contentSize = CGSize(width: self.view.bounds.width * 3, height: self.view.bounds.height)
+        self.layoutViews()
+    }
+    
+    func layoutViews() {
         let viewWidth = self.view.bounds.width
         let viewHeight = self.view.bounds.height
         
-        var scrollViewContentSizeWidth = viewWidth
-        var scrollViewContentOffset = 0 as CGFloat
+        var leftInset:CGFloat = 0
+        var rightInset:CGFloat = 0
         
-        if (self.leftViewController != nil) {
-            scrollViewContentSizeWidth += viewWidth
-            scrollViewContentOffset += viewWidth
+        if (self.leftViewController == nil) {
+            leftInset = -viewWidth
+        }
+    
+        if (self.rightViewController == nil) {
+            rightInset = -viewWidth
         }
         
-        if (self.rightViewController != nil) {
-            scrollViewContentSizeWidth += viewWidth
-        }
-        
-        self.scrollView.contentSize = CGSize(width: scrollViewContentSizeWidth, height: self.view.bounds.height)
-        self.scrollView.contentOffset = CGPoint(x: scrollViewContentOffset, y: 0)
+        self.scrollView.contentOffset = CGPoint(x: viewWidth, y: 0)
+        self.scrollView.contentInset = UIEdgeInsetsMake(0, leftInset, 0, rightInset)
         
         self.leftViewController?.view.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
-        self.currentViewController?.view.frame = CGRect(x: scrollViewContentOffset, y: 0, width: viewWidth, height: viewHeight)
-        self.rightViewController?.view.frame = CGRect(x: scrollViewContentOffset + viewWidth, y: 0, width: viewWidth, height: viewHeight)
+        self.currentViewController?.view.frame = CGRect(x: viewWidth, y: 0, width: viewWidth, height: viewHeight)
+        self.rightViewController?.view.frame = CGRect(x: viewWidth * 2, y: 0, width: viewWidth, height: viewHeight)
         
     }
+    
+    
+    // MARK: - UIScrollView Delegate
+    
+    func didScrollToViewController(viewController:UIViewController) {
+        self.setCurrentViewController(viewController, animated: false, completion: nil)
+        self.layoutViews()
+    }
+        
+    func scrollViewDidScroll(scrollView: UIScrollView) {
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        let viewWidth = self.view.bounds.width
+        let progress = (scrollView.contentOffset.x - viewWidth) / viewWidth
+        
+        //println("progress: \(progress)")
+        
+        if (progress > 0) {
+            if (self.rightViewController != nil) {
+                self.addViewControllerIfNeeded(self.rightViewController!)
+            }
+        } else {
+            if (self.leftViewController != nil) {
+                self.addViewControllerIfNeeded(self.leftViewController!)
+            }
+        }
+        
+        if (progress >= 1 && self.rightViewController != nil) {
+            self.navigationDirection = .Forward
+        } else if (progress <= -1  && self.leftViewController != nil) {
+            self.navigationDirection = .Reverse
+        } else if (progress == 0  && self.currentViewController != nil) {
+        }
     }
     
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        switch self.navigationDirection {
+        case .Neutral:
+            self.didScrollToViewController(self.currentViewController!)
+            break
+        case .Forward:
+            self.didScrollToViewController(self.rightViewController!)
+            break
+        case .Reverse:
+            self.didScrollToViewController(self.leftViewController!)
+            break
+        }
+    }
 
 }

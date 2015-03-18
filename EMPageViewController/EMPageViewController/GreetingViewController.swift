@@ -18,5 +18,21 @@ class GreetingViewController: UIViewController {
 
         self.label.text = greeting!
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        println("viewWillAppear: \(self.greeting)")
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        println("viewWillDisappear: \(self.greeting)")
+    }
+    
+    deinit {
+        println("deinit: \(self.greeting)")
+    }
 
 }
