@@ -10,6 +10,10 @@ import UIKit
 
 class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPageViewControllerDelegate {
 
+    @IBOutlet weak var reverseButton: UIButton!
+    @IBOutlet weak var scrollToButton: UIButton!
+    @IBOutlet weak var forwardButton: UIButton!
+    
     var pageViewController:EMPageViewController?
     
     var viewControllerGreetings:[String] = ["Hello!", "¡Hola!", "Salut!", "Hallo!", "Ciao!"]
@@ -24,16 +28,66 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         
         // Set the initially selected view controller
         let currentViewController = self.viewControllerAtIndex(0)!
-        pageViewController.setCurrentViewController(currentViewController, animated: false, completion: nil)
+        pageViewController.setInitialViewController(currentViewController)
         
         // Add EMPageViewController to the root view controller
         self.addChildViewController(pageViewController)
-        self.view.addSubview(pageViewController.view)
+        self.view.insertSubview(pageViewController.view, atIndex: 0) // Insert the page controller view below the navigation buttons
         pageViewController.didMoveToParentViewController(self)
         
         self.pageViewController = pageViewController
     }
     
+    
+    @IBAction func forward(sender: AnyObject) {
+        
+        
+        
+        self.pageViewController!.scrollForward(true, completion: { (transitionSuccessful) in
+        
+            println(transitionSuccessful ? "true" : "false")
+            
+        })
+    }
+    
+    @IBAction func reverse(sender: AnyObject) {
+        self.pageViewController!.scrollReverse(true, completion: { (transitionSuccessful) in
+            
+            println(transitionSuccessful ? "true" : "false")
+            
+        })
+    }
+    
+    @IBAction func scrollTo(sender: AnyObject) {
+        
+        let choiceViewController = UIAlertController(title: "Scroll To...", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let selectedIndex = self.indexOfViewController(self.pageViewController!.selectedViewController as GreetingViewController)
+        
+        for (index, viewControllerGreeting) in enumerate(viewControllerGreetings) {
+            
+            if (index != selectedIndex) {
+            
+                let action = UIAlertAction(title: viewControllerGreeting, style: UIAlertActionStyle.Default, handler: { (alertAction) in
+                    
+                    let viewController = self.viewControllerAtIndex(index)!
+                    
+                    let direction:EMPageViewControllerNavigationDirection = index > selectedIndex ? .Forward : .Reverse
+                    
+                    self.pageViewController!.selectViewController(viewController, direction: direction, animated: true, completion: nil)
+                    
+                })
+                
+                choiceViewController.addAction(action)
+            }
+        }
+        
+        let action = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        choiceViewController.addAction(action)
+        
+        self.presentViewController(choiceViewController, animated: true, completion: nil)
+        
+    }
     
     // MARK: - EMPageViewController Data Source
     
@@ -88,14 +142,31 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         let startGreetingViewController = startingViewController as GreetingViewController
         let destinationGreetingViewController = destinationViewController as GreetingViewController
         
-        println("Is scrolling from \(startGreetingViewController.greeting!) to \(destinationGreetingViewController.greeting!) with progress: \(progress)")
+//        println("Is scrolling from \(startGreetingViewController.greeting!) to \(destinationGreetingViewController.greeting!) with progress: \(progress)")
     }
     
     func em_pageViewController(pageViewController: EMPageViewController, didFinishScrollingFrom previousViewController: UIViewController?, currentViewController: UIViewController, transitionSuccessful: Bool) {
+        
         let previousGreetingViewController = previousViewController as GreetingViewController?
         let currentGreetingViewController = currentViewController as GreetingViewController
         
-        println("Finished scrolling from \(previousGreetingViewController?.greeting!) to \(currentGreetingViewController.greeting!)")
+        if transitionSuccessful {
+        
+            if (self.indexOfViewController(currentGreetingViewController) == 0) {
+                self.reverseButton.enabled = false
+            } else {
+                self.reverseButton.enabled = true
+            }
+            
+            if (self.indexOfViewController(currentGreetingViewController) == self.viewControllerGreetings.count - 1) {
+                self.forwardButton.enabled = false
+            } else {
+                self.forwardButton.enabled = true
+            }
+        }
+        
+        
+//        println("Finished scrolling from \(previousGreetingViewController?.greeting!) to \(currentGreetingViewController.greeting!)")
     }
     
 }

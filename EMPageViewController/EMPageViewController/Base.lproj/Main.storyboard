@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="703-4V-yAM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Root View Controller-->
@@ -13,10 +14,77 @@
                         <viewControllerLayoutGuide type="bottom" id="IfR-02-kHw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="502-Ir-ELC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="61b-9T-ddN">
+                                <rect key="frame" x="7" y="504" width="90" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="Psk-ri-7Zw"/>
+                                    <constraint firstAttribute="height" constant="56" id="eZM-JH-FRS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="15"/>
+                                <state key="normal" title="Reverse">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="1" alpha="0.59999999999999998" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="reverse:" destination="703-4V-yAM" eventType="touchUpInside" id="tCK-a8-1dp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwQ-VB-f2e">
+                                <rect key="frame" x="220" y="504" width="90" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="3XM-IP-LES"/>
+                                    <constraint firstAttribute="height" constant="56" id="FxA-5T-1AD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="15"/>
+                                <state key="normal" title="Forward">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="1" alpha="0.59999999999999998" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="forward:" destination="703-4V-yAM" eventType="touchUpInside" id="kbC-pO-N1b"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vfw-y6-Oxu">
+                                <rect key="frame" x="115" y="504" width="90" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="bAa-iw-Fya"/>
+                                    <constraint firstAttribute="width" constant="90" id="dm2-5r-Jfq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="15"/>
+                                <state key="normal" title="Scroll To...">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="scrollTo:" destination="703-4V-yAM" eventType="touchUpInside" id="uKS-Mj-oIt"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="vwQ-VB-f2e" secondAttribute="trailing" constant="-6" id="Mun-f5-8zT"/>
+                            <constraint firstAttribute="centerX" secondItem="Vfw-y6-Oxu" secondAttribute="centerX" id="PSm-3f-h1D"/>
+                            <constraint firstItem="IfR-02-kHw" firstAttribute="top" secondItem="vwQ-VB-f2e" secondAttribute="bottom" constant="8" id="RPf-dj-Bkj"/>
+                            <constraint firstItem="61b-9T-ddN" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leadingMargin" constant="-9" id="ajN-AP-lHs"/>
+                            <constraint firstItem="IfR-02-kHw" firstAttribute="top" secondItem="Vfw-y6-Oxu" secondAttribute="bottom" constant="8" id="qHV-SM-kEL"/>
+                            <constraint firstItem="IfR-02-kHw" firstAttribute="top" secondItem="61b-9T-ddN" secondAttribute="bottom" constant="8" id="ydg-te-vUe"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="forwardButton" destination="vwQ-VB-f2e" id="uhf-Hj-fGR"/>
+                        <outlet property="reverseButton" destination="61b-9T-ddN" id="HjL-E4-xGe"/>
+                        <outlet property="scrollToButton" destination="Vfw-y6-Oxu" id="T9a-Gw-gd8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3h-pU-vEd" sceneMemberID="firstResponder"/>
             </objects>
