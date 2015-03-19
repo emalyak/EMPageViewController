@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RootViewController: UIViewController, EMPageViewControllerDataSource {
+class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPageViewControllerDelegate {
 
     var pageViewController:EMPageViewController?
     
@@ -20,6 +20,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource {
         // Instantiate EMPageViewController and set the data source to 'self'
         let pageViewController = EMPageViewController()
         pageViewController.dataSource = self
+        pageViewController.delegate = self
         
         // Set the initially selected view controller
         let currentViewController = self.viewControllerAtIndex(0)!
@@ -71,7 +72,31 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource {
             return nil
         }
     }
+    
+    
+    // MARK: - EMPageViewController Delegate
 
-
+    func em_pageViewController(pageViewController: EMPageViewController, willStartScrollingFrom startingViewController: UIViewController, destinationViewController: UIViewController) {
+        
+        let startGreetingViewController = startingViewController as GreetingViewController
+        let destinationGreetingViewController = destinationViewController as GreetingViewController
+        
+        println("Will start scrolling from \(startGreetingViewController.greeting!) to \(destinationGreetingViewController.greeting!)")
+    }
+    
+    func em_pageViewController(pageViewController: EMPageViewController, isScrollingFrom startingViewController: UIViewController, destinationViewController: UIViewController, progress: Float) {
+        let startGreetingViewController = startingViewController as GreetingViewController
+        let destinationGreetingViewController = destinationViewController as GreetingViewController
+        
+        println("Is scrolling from \(startGreetingViewController.greeting!) to \(destinationGreetingViewController.greeting!) with progress: \(progress)")
+    }
+    
+    func em_pageViewController(pageViewController: EMPageViewController, didFinishScrollingFrom previousViewController: UIViewController?, currentViewController: UIViewController, transitionSuccessful: Bool) {
+        let previousGreetingViewController = previousViewController as GreetingViewController?
+        let currentGreetingViewController = currentViewController as GreetingViewController
+        
+        println("Finished scrolling from \(previousGreetingViewController?.greeting!) to \(currentGreetingViewController.greeting!)")
+    }
+    
 }
 
