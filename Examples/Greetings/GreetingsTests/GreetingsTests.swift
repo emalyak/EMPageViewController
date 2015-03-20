@@ -1,15 +1,15 @@
 //
-//  EMPageViewControllerTests.swift
-//  EMPageViewControllerTests
+//  GreetingsTests.swift
+//  GreetingsTests
 //
-//  Created by Erik Malyak on 3/16/15.
+//  Created by Erik Malyak on 3/19/15.
 //  Copyright (c) 2015 Erik Malyak. All rights reserved.
 //
 
 import UIKit
 import XCTest
 
-class EMPageViewControllerTests: XCTestCase {
+class GreetingsTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
