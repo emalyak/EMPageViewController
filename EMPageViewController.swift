@@ -339,7 +339,13 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        // Called to center view after bounce
-        scrollView.setContentOffset(CGPoint(x: self.view.bounds.width, y: 0), animated: true) // bug at end view controllers
+        // setContentOffset is called to center the selected view after bounces
+        // This prevents yucky behavior at the beginning and end of the page collection by making sure setContentOffset is called only if...
+        if (self.leftViewController != nil && self.rightViewController != nil) // It isn't at the beginning or end of the page collection
+            || (self.leftViewController == nil && scrollView.contentOffset.x > fabs(scrollView.contentInset.left)) // If it's at the beginning of the collection, the decelleration can't be triggered by scrolling away from, than torwards the inset
+            || (self.rightViewController == nil && scrollView.contentOffset.x < fabs(scrollView.contentInset.right)) { // Same as the last condition, but at the end of the collection
+            scrollView.setContentOffset(CGPoint(x: self.view.bounds.width, y: 0), animated: true)
+        }
+        
     }
 }
