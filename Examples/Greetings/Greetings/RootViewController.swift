@@ -143,7 +143,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         println("Will start scrolling from \(startGreetingViewController.greeting!) to \(destinationGreetingViewController.greeting!)")
     }
     
-    func em_pageViewController(pageViewController: EMPageViewController, isScrollingFrom startingViewController: UIViewController, destinationViewController: UIViewController, progress: Float) {
+    func em_pageViewController(pageViewController: EMPageViewController, isScrollingFrom startingViewController: UIViewController, destinationViewController: UIViewController, progress: CGFloat) {
         let startGreetingViewController = startingViewController as GreetingViewController
         let destinationGreetingViewController = destinationViewController as GreetingViewController
         

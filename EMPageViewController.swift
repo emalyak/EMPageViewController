@@ -37,7 +37,7 @@ import UIKit
 @objc protocol EMPageViewControllerDelegate {
     optional func em_pageViewController(pageViewController:EMPageViewController, willStartScrollingFrom startingViewController:UIViewController, destinationViewController:UIViewController)
     optional func em_pageViewController(pageViewController:EMPageViewController, didFinishScrollingFrom previousViewController:UIViewController?, selectedViewController:UIViewController, transitionSuccessful:Bool)
-    optional func em_pageViewController(pageViewController:EMPageViewController, isScrollingFrom startingViewController:UIViewController, destinationViewController:UIViewController, progress:Float)
+    optional func em_pageViewController(pageViewController:EMPageViewController, isScrollingFrom startingViewController:UIViewController, destinationViewController:UIViewController, progress:CGFloat)
 }
 
 enum EMPageViewControllerNavigationDirection : Int {
@@ -295,7 +295,7 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
                     
                     self.navigationDirection = .Forward
                     
-                    self.delegate?.em_pageViewController?(self, isScrollingFrom: self.selectedViewController!, destinationViewController: self.rightViewController!, progress: Float(progress))
+                    self.delegate?.em_pageViewController?(self, isScrollingFrom: self.selectedViewController!, destinationViewController: self.rightViewController!, progress: progress)
                 }
                 
             // Scrolling reverse / left
@@ -313,15 +313,15 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
                     
                     self.navigationDirection = .Reverse
                     
-                    self.delegate?.em_pageViewController?(self, isScrollingFrom: self.selectedViewController!, destinationViewController: self.leftViewController!, progress: Float(progress))
+                    self.delegate?.em_pageViewController?(self, isScrollingFrom: self.selectedViewController!, destinationViewController: self.leftViewController!, progress: progress)
                 }
                 
             // At zero
             } else {
                 if (self.navigationDirection == .Forward) {
-                    self.delegate?.em_pageViewController?(self, isScrollingFrom: self.selectedViewController!, destinationViewController: self.rightViewController!, progress: Float(progress))
+                    self.delegate?.em_pageViewController?(self, isScrollingFrom: self.selectedViewController!, destinationViewController: self.rightViewController!, progress: progress)
                 } else if (self.navigationDirection == .Reverse) {
-                    self.delegate?.em_pageViewController?(self, isScrollingFrom: self.selectedViewController!, destinationViewController: self.leftViewController!, progress: Float(progress))
+                    self.delegate?.em_pageViewController?(self, isScrollingFrom: self.selectedViewController!, destinationViewController: self.leftViewController!, progress: progress)
                 }
             }
             
