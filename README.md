@@ -51,6 +51,53 @@ Lastly, don't forget to set your newly created EMPageViewController object to a 
 self.pageViewController = pageViewController
 ```
 
+
+## Documentation
+### EMPageViewControllerDataSource
+The `EMPageViewControllerDataSource` protocol is adopted to provide the view controllers that are displayed when the user scrolls through pages. Methods are called on an as-needed basis. This protocol must be adopted, or else an assertion will fail.
+
+Each method returns a UIViewController object or nil if there are no view controllers to be displayed.
+<br><br>
+#####`em_pageViewController:viewControllerLeftOfViewController:`
+
+Called to optionally return a view controller that is to the left of a given view controller.
+
+**Declaration**
+```swift
+func em_pageViewController(pageViewController:EMPageViewController, viewControllerLeftOfViewController viewController:UIViewController) -> UIViewController?
+```
+**Parameters**
+
+Parameter              | Description
+---------------------- | --------------------------------------
+*`pageViewController`* | The page view controller
+*`viewController`*     | The point of reference view controller
+
+**Return value**
+
+The view controller that is to the left of the given `viewController`, or `nil` if there is no view controller to be displayed.
+
+<br><br>
+
+#####`em_pageViewController:viewControllerRightOfViewController:`
+
+Called to optionally return a view controller that is to the right of a given view controller.
+
+**Declaration**
+```swift
+func em_pageViewController(pageViewController:EMPageViewController, viewControllerLeftOfViewController viewController:UIViewController) -> UIViewController?
+```
+**Parameters**
+
+Parameter              | Description
+---------------------- | --------------------------------------
+*`pageViewController`* | The page view controller
+*`viewController`*     | The point of reference view controller
+
+**Return value**
+
+The view controller that is to the right of the given `viewController`, or `nil` if there is no view controller to be displayed.
+
 ## Compatibility
 * Xcode 6.1+
 * iOS 7+
