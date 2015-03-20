@@ -15,6 +15,9 @@ EMPageViewController is not a subclass of UIPageViewController. Instead, it's a 
 ## Installation
 Simply include [EMPageViewController.swift](EMPageViewController.swift) into your project.
 
+## Demo
+To see EMPageViewController in action, clone this repository, open the Xcode project file *Greetings.xcodeproj* in [Examples/Greetings](Examples/Greetings), and build and run the project.
+
 ## Usage
 
 ### Initialization
@@ -53,11 +56,44 @@ self.pageViewController = pageViewController
 
 
 ## Documentation
+
+### EMPageViewController
+
+#### Properties
+
+* * *
+
+#####`dataSource`
+
+The object that provides view controllers on an as-needed basis throughout the navigation of the page view controller.
+
+**Declaration**
+```swift
+weak var dataSource:EMPageViewControllerDataSource!
+```
+
+* * *
+
+#####`delegate`
+
+The object that recieves messages throughout the navigation of the page view controller.
+
+**Declaration**
+```swift
+weak var delegate:EMPageViewControllerDelegate?
+```
+
+* * *
+
+#### Methods
+
 ### EMPageViewControllerDataSource
 The `EMPageViewControllerDataSource` protocol is adopted to provide the view controllers that are displayed when the user scrolls through pages. Methods are called on an as-needed basis. This protocol must be adopted, or else an assertion will fail.
 
 Each method returns a UIViewController object or nil if there are no view controllers to be displayed.
-<br><br>
+
+* * *
+
 #####`em_pageViewController:viewControllerLeftOfViewController:`
 
 Called to optionally return a view controller that is to the left of a given view controller.
@@ -77,7 +113,7 @@ Parameter              | Description
 
 The view controller that is to the left of the given `viewController`, or `nil` if there is no view controller to be displayed.
 
-<br><br>
+* * *
 
 #####`em_pageViewController:viewControllerRightOfViewController:`
 
@@ -97,6 +133,8 @@ Parameter              | Description
 **Return value**
 
 The view controller that is to the right of the given `viewController`, or `nil` if there is no view controller to be displayed.
+
+* * *
 
 ## Compatibility
 * Xcode 6.1+
