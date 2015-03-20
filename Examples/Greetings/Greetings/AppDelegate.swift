@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         application.statusBarStyle = .LightContent
-
+        application.setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide)
         return true
     }
 

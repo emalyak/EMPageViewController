@@ -8,7 +8,7 @@
         <!--Root View Controller-->
         <scene sceneID="CIq-6K-Dfm">
             <objects>
-                <viewController id="7Gg-0w-pGz" customClass="RootViewController" customModule="EMPageViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7Gg-0w-pGz" customClass="RootViewController" customModule="Greetings" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eKK-ys-rFN"/>
                         <viewControllerLayoutGuide type="bottom" id="cyf-uX-HPX"/>
@@ -69,7 +69,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.20392156862745098" green="0.28627450980392155" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="aDF-kp-6qA" secondAttribute="centerX" id="HvI-65-hOU"/>
                             <constraint firstItem="ILx-9F-6Zj" firstAttribute="leading" secondItem="WN8-NT-mRZ" secondAttribute="leadingMargin" constant="-9" id="Vef-TQ-vIg"/>
@@ -93,7 +93,7 @@
         <!--Greeting View Controller-->
         <scene sceneID="ARz-2U-CXY">
             <objects>
-                <viewController storyboardIdentifier="GreetingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="132-UH-CNb" customClass="GreetingViewController" customModule="EMPageViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GreetingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="132-UH-CNb" customClass="GreetingViewController" customModule="Greetings" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cwi-nf-Zhu"/>
                         <viewControllerLayoutGuide type="bottom" id="GIp-5G-KUD"/>

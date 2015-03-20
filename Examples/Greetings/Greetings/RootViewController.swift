@@ -16,7 +16,14 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     
     var pageViewController:EMPageViewController?
     
-    var viewControllerGreetings:[String] = ["Hello!", "¡Hola!", "Salut!", "Hallo!", "Ciao!"]
+    var greetings:[String] = ["Hello!", "¡Hola!", "Salut!", "Hallo!", "Ciao!"]
+    var greetingColors:[UIColor] = [
+        UIColor(red: 108.0/255.0, green: 122.0/255.0, blue: 137.0/255.0, alpha: 1.0),
+        UIColor(red: 135.0/255.0, green: 211.0/255.0, blue: 124.0/255.0, alpha: 1.0),
+        UIColor(red: 34.0/255.0, green: 167.0/255.0, blue: 240.0/255.0, alpha: 1.0),
+        UIColor(red: 245.0/255.0, green: 171.0/255.0, blue: 53.0/255.0, alpha: 1.0),
+        UIColor(red: 214.0/255.0, green: 69.0/255.0, blue: 65.0/255.0, alpha: 1.0)
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +47,6 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     
     
     @IBAction func forward(sender: AnyObject) {
-        
-        
-        
         self.pageViewController!.scrollForward(true, completion: { (transitionSuccessful) in
         
             println(transitionSuccessful ? "true" : "false")
@@ -64,7 +68,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         
         let selectedIndex = self.indexOfViewController(self.pageViewController!.selectedViewController as GreetingViewController)
         
-        for (index, viewControllerGreeting) in enumerate(viewControllerGreetings) {
+        for (index, viewControllerGreeting) in enumerate(greetings) {
             
             if (index != selectedIndex) {
             
@@ -110,18 +114,19 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     }
     
     func viewControllerAtIndex(index: Int) -> GreetingViewController? {
-        if (self.viewControllerGreetings.count == 0) || (index < 0) || (index >= self.viewControllerGreetings.count) {
+        if (self.greetings.count == 0) || (index < 0) || (index >= self.greetings.count) {
             return nil
         }
         
         let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("GreetingViewController") as GreetingViewController
-        viewController.greeting = self.viewControllerGreetings[index]
+        viewController.greeting = self.greetings[index]
+        viewController.color = self.greetingColors[index]
         return viewController
     }
     
     func indexOfViewController(viewController: GreetingViewController) -> Int? {
         if let greeting: String = viewController.greeting {
-            return find(self.viewControllerGreetings, greeting)
+            return find(self.greetings, greeting)
         } else {
             return nil
         }
@@ -142,31 +147,30 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         let startGreetingViewController = startingViewController as GreetingViewController
         let destinationGreetingViewController = destinationViewController as GreetingViewController
         
-//        println("Is scrolling from \(startGreetingViewController.greeting!) to \(destinationGreetingViewController.greeting!) with progress: \(progress)")
+       println("Is scrolling from \(startGreetingViewController.greeting) to \(destinationGreetingViewController.greeting) with progress: \(progress)")
     }
     
-    func em_pageViewController(pageViewController: EMPageViewController, didFinishScrollingFrom previousViewController: UIViewController?, currentViewController: UIViewController, transitionSuccessful: Bool) {
-        
+    func em_pageViewController(pageViewController: EMPageViewController, didFinishScrollingFrom previousViewController: UIViewController?, selectedViewController: UIViewController, transitionSuccessful: Bool) {
         let previousGreetingViewController = previousViewController as GreetingViewController?
-        let currentGreetingViewController = currentViewController as GreetingViewController
+        let selectedViewController = selectedViewController as GreetingViewController
         
         if transitionSuccessful {
-        
-            if (self.indexOfViewController(currentGreetingViewController) == 0) {
+            
+            if (self.indexOfViewController(selectedViewController) == 0) {
                 self.reverseButton.enabled = false
             } else {
                 self.reverseButton.enabled = true
             }
             
-            if (self.indexOfViewController(currentGreetingViewController) == self.viewControllerGreetings.count - 1) {
+            if (self.indexOfViewController(selectedViewController) == self.greetings.count - 1) {
                 self.forwardButton.enabled = false
             } else {
                 self.forwardButton.enabled = true
             }
         }
         
-        
-//        println("Finished scrolling from \(previousGreetingViewController?.greeting!) to \(currentGreetingViewController.greeting!)")
+        let success = transitionSuccessful ? "true" : "false"
+        println("Finished scrolling from \(previousGreetingViewController?.greeting!) to \(selectedViewController.greeting!) - \(success)")
     }
     
 }

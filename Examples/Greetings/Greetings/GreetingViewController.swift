@@ -11,12 +11,14 @@ import UIKit
 class GreetingViewController: UIViewController {
 
     @IBOutlet weak var label: UILabel!
-    var greeting:String?
+    var greeting:String!
+    var color:UIColor!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.label.text = greeting!
+        self.view.backgroundColor = color
+        self.label.text = greeting
     }
     
     override func viewWillAppear(animated: Bool) {
