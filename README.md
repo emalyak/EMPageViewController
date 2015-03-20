@@ -63,7 +63,7 @@ self.pageViewController = pageViewController
 
 * * *
 
-#####`dataSource`
+##### `dataSource`
 
 The object that provides view controllers on an as-needed basis throughout the navigation of the page view controller.
 
@@ -74,7 +74,7 @@ weak var dataSource:EMPageViewControllerDataSource!
 
 * * *
 
-#####`delegate`
+##### `delegate`
 
 The object that recieves messages throughout the navigation of the page view controller.
 
@@ -87,6 +87,44 @@ weak var delegate:EMPageViewControllerDelegate?
 
 #### Methods
 
+* * *
+
+##### `setInitialViewController:`
+
+**Declaration**
+```swift
+func setInitialViewController(viewController:UIViewController)
+```
+
+* * *
+
+##### `selectViewController:direction:animated:completion:`
+
+**Declaration**
+```swift
+func selectViewController(viewController:UIViewController, direction:EMPageViewControllerNavigationDirection, animated:Bool, completion:((transitionSuccessful:Bool)->())?)
+```
+
+* * *
+
+##### `scrollForward:completion:`
+
+**Declaration**
+```swift
+func scrollForward(animated:Bool, completion:((transitionSuccessful:Bool)->())?)
+```
+
+* * *
+
+##### `scrollReverse:completion:`
+
+**Declaration**
+```swift
+func scrollReverse(animated:Bool, completion:((transitionSuccessful:Bool)->())?)
+```
+
+* * * 
+
 ### EMPageViewControllerDataSource
 The `EMPageViewControllerDataSource` protocol is adopted to provide the view controllers that are displayed when the user scrolls through pages. Methods are called on an as-needed basis. This protocol must be adopted, or else an assertion will fail.
 
@@ -94,7 +132,7 @@ Each method returns a UIViewController object or nil if there are no view contro
 
 * * *
 
-#####`em_pageViewController:viewControllerLeftOfViewController:`
+##### `em_pageViewController:viewControllerLeftOfViewController:`
 
 Called to optionally return a view controller that is to the left of a given view controller.
 
@@ -115,13 +153,13 @@ The view controller that is to the left of the given `viewController`, or `nil` 
 
 * * *
 
-#####`em_pageViewController:viewControllerRightOfViewController:`
+##### `em_pageViewController:viewControllerRightOfViewController:`
 
 Called to optionally return a view controller that is to the right of a given view controller.
 
 **Declaration**
 ```swift
-func em_pageViewController(pageViewController:EMPageViewController, viewControllerLeftOfViewController viewController:UIViewController) -> UIViewController?
+func em_pageViewController(pageViewController:EMPageViewController, viewControllerRightOfViewController viewController:UIViewController) -> UIViewController?
 ```
 **Parameters**
 
@@ -133,6 +171,37 @@ Parameter              | Description
 **Return value**
 
 The view controller that is to the right of the given `viewController`, or `nil` if there is no view controller to be displayed.
+
+* * *
+
+### EMPageViewControllerDelegate
+
+* * *
+
+##### `em_pageViewController:willStartScrollingFrom:destinationViewController:`
+
+**Declaration**
+```swift
+optional func em_pageViewController(pageViewController:EMPageViewController, willStartScrollingFrom startingViewController:UIViewController, destinationViewController:UIViewController)
+```
+
+* * *
+
+##### `em_pageViewController:isScrollingFrom:destinationViewController:progress:`
+
+**Declaration**
+```swift
+optional func em_pageViewController(pageViewController:EMPageViewController, isScrollingFrom startingViewController:UIViewController, destinationViewController:UIViewController, progress:CGFloat)
+```
+
+* * *
+
+##### `em_pageViewController:didFinishScrollingFrom:selectedViewController:transitionSuccessful:`
+
+**Declaration**
+```swift
+optional func em_pageViewController(pageViewController:EMPageViewController, didFinishScrollingFrom previousViewController:UIViewController?, selectedViewController:UIViewController, transitionSuccessful:Bool)
+```
 
 * * *
 
