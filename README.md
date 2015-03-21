@@ -12,6 +12,14 @@ In addition to the ability scroll to any view controller, you can also easily sc
 ### Written in Swift
 EMPageViewController is not a subclass of UIPageViewController. Instead, it's a subclass of UIViewController with a UIScrollView, written in Swift, and it has common sense delegate and data source methods that will make the development of your page-based iOS app a breeze.
 
+## Compatibility
+* Xcode 6.1+
+* iOS 7+
+* iPhone, iPad, and iPod Touch
+
+## License
+[MIT License](LICENSE)
+
 ## Installation
 Simply include [EMPageViewController.swift](EMPageViewController.swift) into your project.
 
@@ -22,7 +30,8 @@ To see EMPageViewController in action, clone this repository, open the Xcode pro
 
 ### Initialization
 
-Initialize EMPageViewController and set its `dataSource` and `delegate` properties. The data source must be set, or else an assertion will fail.
+Initialize EMPageViewController and set its `dataSource` and `delegate` properties.
+
 ```swift
 let pageViewController = EMPageViewController()
 pageViewController.dataSource = self
@@ -35,10 +44,10 @@ class ViewControllerSubclass: UIViewController, EMPageViewControllerDataSource, 
 ...
 ```
 
-Set the initial view controller for the page view controller with `setInitialViewController:`. This is the page that will be selected when your view controller loads.
+Set the initial view controller for the page view controller with `selectViewController:direction:animated:completion:`. This is the page that will be selected when your view controller loads.
 ```swift
 let initialViewController = MyViewController() // You'll probably have a method here that returns your view controller based on an index value or something similar, like viewControllerAtIndex:
-pageViewController.setInitialViewController(initialViewController)
+pageViewController.selectViewController(currentViewController, direction: .Forward, animated: false, completion: nil)
 ```
 
 Add EMPageViewController as a child view controller and subview to the UIViewController and UIView it will reside in.
@@ -89,20 +98,11 @@ weak var delegate:EMPageViewControllerDelegate?
 
 * * *
 
-##### `setInitialViewController:`
-
-**Declaration**
-```swift
-func setInitialViewController(viewController:UIViewController)
-```
-
-* * *
-
 ##### `selectViewController:direction:animated:completion:`
 
 **Declaration**
 ```swift
-func selectViewController(viewController:UIViewController, direction:EMPageViewControllerNavigationDirection, animated:Bool, completion:((transitionSuccessful:Bool)->())?)
+func selectViewController(viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?)
 ```
 
 * * *
@@ -111,7 +111,7 @@ func selectViewController(viewController:UIViewController, direction:EMPageViewC
 
 **Declaration**
 ```swift
-func scrollForward(animated:Bool, completion:((transitionSuccessful:Bool)->())?)
+func scrollForward(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?)
 ```
 
 * * *
@@ -120,15 +120,17 @@ func scrollForward(animated:Bool, completion:((transitionSuccessful:Bool)->())?)
 
 **Declaration**
 ```swift
-func scrollReverse(animated:Bool, completion:((transitionSuccessful:Bool)->())?)
+func scrollReverse(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?)
 ```
 
 * * * 
 
 ### EMPageViewControllerDataSource
-The `EMPageViewControllerDataSource` protocol is adopted to provide the view controllers that are displayed when the user scrolls through pages. Methods are called on an as-needed basis. This protocol must be adopted, or else an assertion will fail.
+The `EMPageViewControllerDataSource` protocol is adopted to provide the view controllers that are displayed when the user scrolls through pages. Methods are called on an as-needed basis.
 
 Each method returns a UIViewController object or nil if there are no view controllers to be displayed.
+
+If the data source is nil, gesture based scrolling will be disabled and all view controllers must be provided through `selectViewController:direction:animated:completion:`.
 
 * * *
 
@@ -138,7 +140,7 @@ Called to optionally return a view controller that is to the left of a given vie
 
 **Declaration**
 ```swift
-func em_pageViewController(pageViewController:EMPageViewController, viewControllerLeftOfViewController viewController:UIViewController) -> UIViewController?
+func em_pageViewController(pageViewController: EMPageViewController, viewControllerLeftOfViewController viewController: UIViewController) -> UIViewController?
 ```
 **Parameters**
 
@@ -159,7 +161,7 @@ Called to optionally return a view controller that is to the right of a given vi
 
 **Declaration**
 ```swift
-func em_pageViewController(pageViewController:EMPageViewController, viewControllerRightOfViewController viewController:UIViewController) -> UIViewController?
+func em_pageViewController(pageViewController: EMPageViewController, viewControllerRightOfViewController viewController: UIViewController) -> UIViewController?
 ```
 **Parameters**
 
@@ -182,8 +184,9 @@ The view controller that is to the right of the given `viewController`, or `nil`
 
 **Declaration**
 ```swift
-optional func em_pageViewController(pageViewController:EMPageViewController, willStartScrollingFrom startingViewController:UIViewController, destinationViewController:UIViewController)
+optional func em_pageViewController(pageViewController: EMPageViewController, willStartScrollingFrom startingViewController: UIViewController, destinationViewController: UIViewController)
 ```
+This method will not be called if the starting view controller is `nil`.
 
 * * *
 
@@ -191,8 +194,9 @@ optional func em_pageViewController(pageViewController:EMPageViewController, wil
 
 **Declaration**
 ```swift
-optional func em_pageViewController(pageViewController:EMPageViewController, isScrollingFrom startingViewController:UIViewController, destinationViewController:UIViewController, progress:CGFloat)
+optional func em_pageViewController(pageViewController: EMPageViewController, isScrollingFrom startingViewController: UIViewController, destinationViewController: UIViewController, progress: CGFloat)
 ```
+This method will not be called if the starting view controller is `nil`.
 
 * * *
 
@@ -200,15 +204,8 @@ optional func em_pageViewController(pageViewController:EMPageViewController, isS
 
 **Declaration**
 ```swift
-optional func em_pageViewController(pageViewController:EMPageViewController, didFinishScrollingFrom previousViewController:UIViewController?, selectedViewController:UIViewController, transitionSuccessful:Bool)
+optional func em_pageViewController(pageViewController: EMPageViewController, didFinishScrollingFrom previousViewController: UIViewController?, selectedViewController: UIViewController, transitionSuccessful: Bool)
 ```
 
 * * *
 
-## Compatibility
-* Xcode 6.1+
-* iOS 7+
-* iPhone, iPad, and iPod Touch
-
-## License
-[MIT License](LICENSE)
