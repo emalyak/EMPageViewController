@@ -14,10 +14,10 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     @IBOutlet weak var scrollToButton: UIButton!
     @IBOutlet weak var forwardButton: UIButton!
     
-    var pageViewController:EMPageViewController?
+    var pageViewController: EMPageViewController?
     
-    var greetings:[String] = ["Hello!", "¡Hola!", "Salut!", "Hallo!", "Ciao!"]
-    var greetingColors:[UIColor] = [
+    var greetings: [String] = ["Hello!", "¡Hola!", "Salut!", "Hallo!", "Ciao!"]
+    var greetingColors: [UIColor] = [
         UIColor(red: 108.0/255.0, green: 122.0/255.0, blue: 137.0/255.0, alpha: 1.0),
         UIColor(red: 135.0/255.0, green: 211.0/255.0, blue: 124.0/255.0, alpha: 1.0),
         UIColor(red: 34.0/255.0, green: 167.0/255.0, blue: 240.0/255.0, alpha: 1.0),
@@ -35,7 +35,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         
         // Set the initially selected view controller
         let currentViewController = self.viewControllerAtIndex(0)!
-        pageViewController.setInitialViewController(currentViewController)
+        pageViewController.selectViewController(currentViewController, direction: .Forward, animated: false, completion: nil)
         
         // Add EMPageViewController to the root view controller
         self.addChildViewController(pageViewController)
