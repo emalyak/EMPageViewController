@@ -50,6 +50,7 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
     weak var dataSource: EMPageViewControllerDataSource?
     weak var delegate: EMPageViewControllerDelegate?
 
+    // This is private because some properties cannot be changed publicly, or else it will break things
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.pagingEnabled = true
@@ -63,37 +64,30 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         return scrollView
     }()
     
-    
     private var leftViewController: UIViewController?
     private(set) var selectedViewController: UIViewController?
     private var rightViewController: UIViewController?
     
     private var adjustingContentOffset = false // Flag used to prevent isScrolling delegate when shifting scrollView
-    var scrolling = false // Flag to make sure willStartScrollingFrom is only called once
-    var navigationDirection: EMPageViewControllerNavigationDirection?
-    var reloadViewControllersOnFinish = false
+    private var scrolling = false // Flag to make sure willStartScrollingFrom is only called once
+    private var navigationDirection: EMPageViewControllerNavigationDirection?
+    private var reloadAdjoiningViewControllersOnFinish = false
     private var didFinishScrollingCompletionHandler: ((transitionSuccessful: Bool) -> Void)?
 
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.scrollView.delegate = self
-        self.view.addSubview(scrollView)
-    }
-    
+    // MARK: - Public Methods
     
     func selectViewController(viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
         
         if (direction == .Forward) {
             self.rightViewController = viewController
             self.layoutViews()
-            self.reloadViewControllersOnFinish = true
+            self.reloadAdjoiningViewControllersOnFinish = true
             self.scrollForwardAnimated(animated, completion: completion)
         } else if (direction == .Reverse) {
             self.leftViewController = viewController
             self.layoutViews()
-            self.reloadViewControllersOnFinish = true
+            self.reloadAdjoiningViewControllersOnFinish = true
             self.scrollReverseAnimated(animated, completion: completion)
         }
         
@@ -119,6 +113,27 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    
+    // MARK: - View Controller Overrides
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.scrollView.delegate = self
+        self.view.addSubview(scrollView)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        self.scrollView.frame = self.view.bounds
+        self.scrollView.contentSize = CGSize(width: self.view.bounds.width * 3, height: self.view.bounds.height)
+        self.layoutViews()
+    }
+    
+    
+    // MARK: - View Controller Management
+    
     private func loadViewControllers(selectedViewController: UIViewController) {
         
         // Scrolled forward
@@ -131,9 +146,9 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
             
             self.removeChildIfNeeded(self.selectedViewController)
             
-            if self.reloadViewControllersOnFinish {
-                self.leftViewController = self.dataSource?.em_pageViewController(self, viewControllerLeftOfViewController: selectedViewController)
-                self.reloadViewControllersOnFinish = false
+            if self.reloadAdjoiningViewControllersOnFinish {
+                self.loadLeftViewControllerForSelectedViewController(selectedViewController)
+                self.reloadAdjoiningViewControllersOnFinish = false
             } else {
                 // Set new left controller as the old current controller
                 self.leftViewController = self.selectedViewController
@@ -142,8 +157,7 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
             // Set the new current controller as the old right controller
             self.selectedViewController = self.rightViewController
             
-            // Retreive the new right controller from the data source if available, otherwise set as nil
-            self.rightViewController = self.dataSource?.em_pageViewController(self, viewControllerRightOfViewController: selectedViewController)
+            self.loadRightViewControllerForSelectedViewController(selectedViewController)
             
             
         // Scrolled reverse
@@ -156,9 +170,9 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
             
             self.removeChildIfNeeded(self.selectedViewController)
             
-            if self.reloadViewControllersOnFinish {
-                self.rightViewController = self.dataSource?.em_pageViewController(self, viewControllerRightOfViewController: selectedViewController)
-                self.reloadViewControllersOnFinish = false
+            if self.reloadAdjoiningViewControllersOnFinish {
+                self.loadRightViewControllerForSelectedViewController(selectedViewController)
+                self.reloadAdjoiningViewControllersOnFinish = false
             } else {
                 // Set new right controller as the old current controller
                 self.rightViewController = self.selectedViewController
@@ -167,9 +181,7 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
             // Set the new current controller as the old left controller
             self.selectedViewController = self.leftViewController
             
-            // Retreive the new left controller from the data source if available, otherwise set as nil
-            self.leftViewController = self.dataSource?.em_pageViewController(self, viewControllerLeftOfViewController: selectedViewController)
-            
+            self.loadLeftViewControllerForSelectedViewController(selectedViewController)
         
         // Scrolled but ended up where started
         } else if (selectedViewController == self.selectedViewController) {
@@ -186,6 +198,16 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
             // Remove hidden view controllers
             self.removeChildIfNeeded(self.leftViewController)
             self.removeChildIfNeeded(self.rightViewController)
+            
+            if self.reloadAdjoiningViewControllersOnFinish {
+                
+                if (self.navigationDirection == .Forward) {
+                    self.loadRightViewControllerForSelectedViewController(selectedViewController)
+                } else if (self.navigationDirection == .Reverse) {
+                    self.loadLeftViewControllerForSelectedViewController(selectedViewController)
+                }
+            }
+
             
         // Initialization
         } else {
@@ -206,13 +228,26 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        self.scrollView.frame = self.view.bounds
-        self.scrollView.contentSize = CGSize(width: self.view.bounds.width * 3, height: self.view.bounds.height)
-        self.layoutViews()
+    private func loadLeftViewControllerForSelectedViewController(selectedViewController:UIViewController) {
+        // Retreive the new left controller from the data source if available, otherwise set as nil
+        if let leftViewController = self.dataSource?.em_pageViewController(self, viewControllerLeftOfViewController: selectedViewController) {
+            self.leftViewController = leftViewController
+        } else {
+            self.leftViewController = nil
+        }
     }
+    
+    private func loadRightViewControllerForSelectedViewController(selectedViewController:UIViewController) {
+        // Retreive the new right controller from the data source if available, otherwise set as nil
+        if let rightViewController = self.dataSource?.em_pageViewController(self, viewControllerRightOfViewController: selectedViewController) {
+            self.rightViewController = rightViewController
+        } else {
+            self.rightViewController = nil
+        }
+    }
+    
+    
+    // MARK: - View Management
     
     private func addChildIfNeeded(viewController: UIViewController) {
         self.scrollView.addSubview(viewController.view)
@@ -251,6 +286,9 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         self.selectedViewController?.view.frame = CGRect(x: viewWidth, y: 0, width: viewWidth, height: viewHeight)
         self.rightViewController?.view.frame = CGRect(x: viewWidth * 2, y: 0, width: viewWidth, height: viewHeight)
     }
+    
+    
+    // MARK: - Internal Callbacks
     
     private func willScrollFromViewController(startingViewController: UIViewController?, destinationViewController: UIViewController) {
         self.addChildIfNeeded(destinationViewController)
@@ -338,9 +376,10 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         // setContentOffset is called to center the selected view after bounces
         // This prevents yucky behavior at the beginning and end of the page collection by making sure setContentOffset is called only if...
-        if (self.leftViewController != nil && self.rightViewController != nil) // It isn't at the beginning or end of the page collection
-            || (self.leftViewController == nil && scrollView.contentOffset.x > fabs(scrollView.contentInset.left)) // If it's at the beginning of the collection, the decelleration can't be triggered by scrolling away from, than torwards the inset
-            || (self.rightViewController == nil && scrollView.contentOffset.x < fabs(scrollView.contentInset.right)) { // Same as the last condition, but at the end of the collection
+        
+        if  (self.leftViewController != nil && self.rightViewController != nil) || // It isn't at the beginning or end of the page collection
+            (self.rightViewController != nil && self.leftViewController == nil && scrollView.contentOffset.x > fabs(scrollView.contentInset.left)) || // If it's at the beginning of the collection, the decelleration can't be triggered by scrolling away from, than torwards the inset
+            (self.rightViewController != nil && self.rightViewController == nil && scrollView.contentOffset.x < fabs(scrollView.contentInset.right)) { // Same as the last condition, but at the end of the collection
             scrollView.setContentOffset(CGPoint(x: self.view.bounds.width, y: 0), animated: true)
         }
         

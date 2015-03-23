@@ -28,7 +28,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Instantiate EMPageViewController and set the data source to 'self'
+        // Instantiate EMPageViewController and set the data source and delegate to 'self'
         let pageViewController = EMPageViewController()
         pageViewController.dataSource = self
         pageViewController.delegate = self
