@@ -19,9 +19,6 @@ EMPageViewController is not a subclass of UIPageViewController. Instead, it's a 
 * iOS 7+
 * iPhone, iPad, and iPod Touch
 
-## License
-[MIT License](LICENSE)
-
 ## Installation
 Simply include [EMPageViewController.swift](EMPageViewController.swift) into your project.
 
@@ -277,3 +274,12 @@ Parameter                | Description
 `transitionSuccessful`   | A Boolean whether the transition to the originally intended view controller was successful or not. If `false`, the transition returned to the view controller it started from.
 
 * * *
+
+## Contact
+
+Feedback? Suggestions? Just want to say hello? Contact me anytime on Twitter [@emalyak](https://twitter.com/emalyak). You can also visit my website [erikmalyak.com](http://erikmalyak.com) for other ways to get in touch.
+
+## License
+Copyright (c) 2015 [Erik Malyak](http://erikmalyak.com)
+
+[MIT License](LICENSE)
