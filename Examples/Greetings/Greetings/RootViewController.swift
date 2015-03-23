@@ -46,20 +46,14 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     }
     
     
+    // MARK: - Convienient EMPageViewController scroll / transition methods
+    
     @IBAction func forward(sender: AnyObject) {
-        self.pageViewController!.scrollForwardAnimated(true, completion: { (transitionSuccessful) in
-        
-            println(transitionSuccessful ? "true" : "false")
-            
-        })
+        self.pageViewController!.scrollForwardAnimated(true, completion: nil)
     }
     
     @IBAction func reverse(sender: AnyObject) {
-        self.pageViewController!.scrollReverseAnimated(true, completion: { (transitionSuccessful) in
-            
-            println(transitionSuccessful ? "true" : "false")
-            
-        })
+        self.pageViewController!.scrollReverseAnimated(true, completion: nil)
     }
     
     @IBAction func scrollTo(sender: AnyObject) {
@@ -140,14 +134,19 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         let startGreetingViewController = startingViewController as GreetingViewController
         let destinationGreetingViewController = destinationViewController as GreetingViewController
         
-        println("Will start scrolling from \(startGreetingViewController.greeting!) to \(destinationGreetingViewController.greeting!)")
+        println("Will start scrolling from \(startGreetingViewController.greeting) to \(destinationGreetingViewController.greeting).")
     }
     
     func em_pageViewController(pageViewController: EMPageViewController, isScrollingFrom startingViewController: UIViewController, destinationViewController: UIViewController, progress: CGFloat) {
         let startGreetingViewController = startingViewController as GreetingViewController
         let destinationGreetingViewController = destinationViewController as GreetingViewController
         
-       println("Is scrolling from \(startGreetingViewController.greeting) to \(destinationGreetingViewController.greeting) with progress: \(progress)")
+        // Ease the labels' alphas in and out
+        let absoluteProgress = fabs(progress)
+        startGreetingViewController.label.alpha = pow(1 - absoluteProgress, 2)
+        destinationGreetingViewController.label.alpha = pow(absoluteProgress, 2)
+        
+       println("Is scrolling from \(startGreetingViewController.greeting) to \(destinationGreetingViewController.greeting) with progress '\(progress)'.")
     }
     
     func em_pageViewController(pageViewController: EMPageViewController, didFinishScrollingFrom previousViewController: UIViewController?, selectedViewController: UIViewController, transitionSuccessful: Bool) {
@@ -169,8 +168,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
             }
         }
         
-        let success = transitionSuccessful ? "true" : "false"
-        println("Finished scrolling from \(previousGreetingViewController?.greeting!) to \(selectedViewController.greeting!) - \(success)")
+        println("Finished scrolling from \(previousGreetingViewController?.greeting) to \(selectedViewController.greeting). Transition successful? \(transitionSuccessful)")
     }
     
 }

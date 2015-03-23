@@ -27,10 +27,22 @@ class GreetingViewController: UIViewController {
         println("viewWillAppear: \(self.greeting)")
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        println("viewDidAppear: \(self.greeting)")
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
         println("viewWillDisappear: \(self.greeting)")
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        println("viewDidDisappear: \(self.greeting)")
     }
     
     deinit {
