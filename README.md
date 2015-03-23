@@ -1,5 +1,7 @@
 # EMPageViewController
 
+![EMPageViewController Demo](greetings-demo.gif)
+
 ## A better page view controller for iOS
 EMPageViewController is a full replacement for UIPageViewController with the features and predictability you’ve always wanted from a page view controller.
 
