@@ -278,9 +278,8 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         
         self.adjustingContentOffset = true
         self.scrollView.contentOffset = CGPoint(x: viewWidth, y: 0)
-        self.adjustingContentOffset = false
-        
         self.scrollView.contentInset = UIEdgeInsetsMake(0, leftInset, 0, rightInset)
+        self.adjustingContentOffset = false
         
         self.leftViewController?.view.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         self.selectedViewController?.view.frame = CGRect(x: viewWidth, y: 0, width: viewWidth, height: viewHeight)
