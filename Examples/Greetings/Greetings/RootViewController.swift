@@ -47,7 +47,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     
     
     @IBAction func forward(sender: AnyObject) {
-        self.pageViewController!.scrollForward(true, completion: { (transitionSuccessful) in
+        self.pageViewController!.scrollForwardAnimated(true, completion: { (transitionSuccessful) in
         
             println(transitionSuccessful ? "true" : "false")
             
@@ -55,7 +55,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     }
     
     @IBAction func reverse(sender: AnyObject) {
-        self.pageViewController!.scrollReverse(true, completion: { (transitionSuccessful) in
+        self.pageViewController!.scrollReverseAnimated(true, completion: { (transitionSuccessful) in
             
             println(transitionSuccessful ? "true" : "false")
             

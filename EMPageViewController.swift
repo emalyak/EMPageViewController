@@ -83,23 +83,23 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     
-    func selectViewController(viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((transitionSuccessful:Bool) -> Void)?) {
+    func selectViewController(viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
         
         if (direction == .Forward) {
             self.rightViewController = viewController
             self.layoutViews()
             self.reloadViewControllersOnFinish = true
-            self.scrollForward(animated, completion: completion)
+            self.scrollForwardAnimated(animated, completion: completion)
         } else if (direction == .Reverse) {
             self.leftViewController = viewController
             self.layoutViews()
             self.reloadViewControllersOnFinish = true
-            self.scrollReverse(animated, completion: completion)
+            self.scrollReverseAnimated(animated, completion: completion)
         }
         
     }
     
-    func scrollForward(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
+    func scrollForwardAnimated(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
         if (self.rightViewController != nil) {
             self.didFinishScrollingCompletionHandler?(transitionSuccessful: false)
             self.didFinishScrollingCompletionHandler = nil
@@ -109,7 +109,7 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func scrollReverse(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
+    func scrollReverseAnimated(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
         if (self.leftViewController != nil) {
             self.didFinishScrollingCompletionHandler?(transitionSuccessful: false)
             self.didFinishScrollingCompletionHandler = nil
