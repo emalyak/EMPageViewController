@@ -22,48 +22,28 @@ EMPageViewController is not a subclass of UIPageViewController. Instead, it's a 
 ## Installation
 Simply include [EMPageViewController.swift](EMPageViewController.swift) into your project.
 
-## Demo
-To see EMPageViewController in action, clone this repository, open the Xcode project file *Greetings.xcodeproj* in [Examples/Greetings](Examples/Greetings), and build and run the project.
-
-## Usage
-
-### Initialization
-
-Initialize EMPageViewController and set its `dataSource` and `delegate` properties.
-
-```swift
-let pageViewController = EMPageViewController()
-pageViewController.dataSource = self
-pageViewController.delegate = self
-```
-
-You'll also need to adopt the `EMPageViewControllerDataSource` and `EMPageViewControllerDelegate` protocols. Instructions on how to conform to these protocols later.
-```swift
-class ViewControllerSubclass: UIViewController, EMPageViewControllerDataSource, EMPageViewControllerDelegate ...
-...
-```
-
-Set the initial view controller for the page view controller with `selectViewController:direction:animated:completion:`. This is the page that will be selected when your view controller loads.
-```swift
-let initialViewController = MyViewController() // You'll probably have a method here that returns your view controller based on an index value or something similar, like viewControllerAtIndex:
-pageViewController.selectViewController(currentViewController, direction: .Forward, animated: false, completion: nil)
-```
-
-Add EMPageViewController as a child view controller and subview to the UIViewController and UIView it will reside in.
-```swift
-self.addChildViewController(pageViewController)
-self.view.addSubview(pageViewController)
-pageViewController.didMoveToParentViewController(self)
-```
-
-Lastly, don't forget to set your newly created EMPageViewController object to a property in your UIViewController subclass to it's retained for use later on.
-
-```swift
-self.pageViewController = pageViewController
-```
-
+## Example usage / Demo
+Learn how to use EMPageViewController in your project by cloning this repository and opening the Xcode project file *Greetings.xcodeproj* in [Examples/Greetings](Examples/Greetings). The code for initializing EMPageViewController and implementing its delegate and data source is located in [RootViewController.swift](Examples/Greetings/Greetings/RootViewController.swift).
 
 ## Documentation
+
+* [EMPageViewController](#empageviewcontroller-1)
+  * [Properties](#properties)
+    * [dataSource](#datasource)
+    * [delegate](#delegate)
+  * [Methods](#methods)
+    * [selectViewController:direction:animated:completion:](#selectviewcontrollerdirectionanimatedcompletion)
+    * [scrollForwardAnimated:completion:](#scrollforwardanimatedcompletion)
+    * [scrollReverseAnimated:completion:](#scrollreverseanimatedcompletion)
+
+* [EMPageViewControllerDataSource](#empageviewcontrollerdatasource)
+  * [em_pageViewController:viewControllerLeftOfViewController:](#em_pageviewcontrollerviewcontrollerleftofviewcontroller)
+  * [em_pageViewController:viewControllerRightOfViewController:](#em_pageviewcontrollerviewcontrollerrightofviewcontroller)
+
+* [EMPageViewControllerDelegate](#empageviewcontrollerdelegate)
+  * [em_pageViewController:willStartScrollingFrom:destinationViewController:](#em_pageviewcontrollerwillstartscrollingfromdestinationviewcontroller)
+  * [em_pageViewController:isScrollingFrom:destinationViewController:progress:](#em_pageviewcontrollerisscrollingfromdestinationviewcontrollerprogress)
+  * [em_pageViewController:didFinishScrollingFrom:selectedViewController:transitionSuccessful:](#em_pageviewcontrollerdidfinishscrollingfromselectedviewcontrollertransitionsuccessful)
 
 ### EMPageViewController
 `EMPageViewController` allows for page navigation through different view controllers, or "pages". View controllers can be navigated via swiping gestures, or called programmatically. 
