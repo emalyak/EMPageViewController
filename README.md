@@ -191,7 +191,7 @@ The `EMPageViewControllerDelegate` protocol is adopted to receive messages for a
 
 ##### `em_pageViewController:willStartScrollingFrom:destinationViewController:`
 
-Called before scrolling to a new view controller. The `viewWillAppear` and `viewDidAppear` methods of the view controller being scrolled to (`destinationViewController`) will also be called.
+Called before scrolling to a new view controller.
 
 This method will not be called if the starting view controller is `nil`. A common scenario where this will occur is when you initialize the page view controller and use `selectViewController:direction:animated:completion:` to load the first controller.
 
