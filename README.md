@@ -121,13 +121,13 @@ Parameter              | Description
 
 * * *
 
-##### `scrollForward:completion:`
+##### `scrollForwardAnimated:completion:`
 
 Transitions to the view controller right of the currently selected view controller. Also described as going to the next page.
 
 **Declaration**
 ```swift
-func scrollForward(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?)
+func scrollForwardAnimated(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?)
 ```
 
 Parameter     | Description
@@ -137,13 +137,13 @@ Parameter     | Description
 
 * * *
 
-##### `scrollReverse:completion:`
+##### `scrollReverseAnimated:completion:`
 
 Transitions to the view controller left of the currently selected view controller. Also described as going to the previous page.
 
 **Declaration**
 ```swift
-func scrollReverse(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?)
+func scrollReverseAnimated(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?)
 ```
 
 Parameter     | Description
