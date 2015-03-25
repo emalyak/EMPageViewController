@@ -43,7 +43,7 @@ Learn how to use EMPageViewController in your project by cloning this repository
 * [EMPageViewControllerDelegate](#empageviewcontrollerdelegate)
   * [em_pageViewController:willStartScrollingFrom:destinationViewController:](#em_pageviewcontrollerwillstartscrollingfromdestinationviewcontroller)
   * [em_pageViewController:isScrollingFrom:destinationViewController:progress:](#em_pageviewcontrollerisscrollingfromdestinationviewcontrollerprogress)
-  * [em_pageViewController:didFinishScrollingFrom:selectedViewController:transitionSuccessful:](#em_pageviewcontrollerdidfinishscrollingfromselectedviewcontrollertransitionsuccessful)
+  * [em_pageViewController:didFinishScrollingFrom:destinationViewController:transitionSuccessful:](#em_pageviewcontrollerdidfinishscrollingfromdestinationviewcontrollertransitionsuccessful)
 
 ### EMPageViewController
 `EMPageViewController` allows for page navigation through different view controllers, or "pages". View controllers can be navigated via swiping gestures, or called programmatically. 
@@ -193,11 +193,11 @@ The `EMPageViewControllerDelegate` protocol is adopted to receive messages for a
 
 Called before scrolling to a new view controller.
 
-This method will not be called if the starting view controller is `nil`. A common scenario where this will occur is when you initialize the page view controller and use `selectViewController:direction:animated:completion:` to load the first controller.
+This method will not be called if the start view controller is `nil`. A common scenario where this will occur is when you initialize the page view controller and use `selectViewController:direction:animated:completion:` to load the first controller.
 
 **Declaration**
 ```swift
-optional func em_pageViewController(pageViewController: EMPageViewController, willStartScrollingFrom startingViewController: UIViewController, destinationViewController: UIViewController)
+optional func em_pageViewController(pageViewController: EMPageViewController, willStartScrollingFrom startViewController: UIViewController, destinationViewController: UIViewController)
 ```
 
 **Parameters**
@@ -205,7 +205,7 @@ optional func em_pageViewController(pageViewController: EMPageViewController, wi
 Parameter                   | Description
 --------------------------- | --------------------------------------
 `pageViewController`        | The page view controller
-`startingViewController`    | The currently selected view controller the transition is starting from
+`startViewController`       | The currently selected view controller the transition is starting from
 `destinationViewController` | The view controller being scrolled to where the transition will end
 
 **Note**
@@ -217,11 +217,11 @@ If bouncing is enabled, it is possible this method will be called more than once
 
 Called whenever there has been a scroll position change in a page transition. This method is very useful if you need to know the exact progress of the page transition animation.
 
-This method will not be called if the starting view controller is `nil`. A common scenario where this will occur is when you initialize the page view controller and use `selectViewController:direction:animated:completion:` to load the first controller.
+This method will not be called if the start view controller is `nil`. A common scenario where this will occur is when you initialize the page view controller and use `selectViewController:direction:animated:completion:` to load the first controller.
 
 **Declaration**
 ```swift
-optional func em_pageViewController(pageViewController: EMPageViewController, isScrollingFrom startingViewController: UIViewController, destinationViewController: UIViewController, progress: CGFloat)
+optional func em_pageViewController(pageViewController: EMPageViewController, isScrollingFrom startViewController: UIViewController, destinationViewController: UIViewController, progress: CGFloat)
 ```
 
 **Parameters**
@@ -229,29 +229,29 @@ optional func em_pageViewController(pageViewController: EMPageViewController, is
 Parameter                   | Description
 --------------------------- | --------------------------------------
 `pageViewController`        | The page view controller
-`startingViewController`    | The currently selected view controller the transition is starting from
+`startViewController`       | The currently selected view controller the transition is starting from
 `destinationViewController` | The view controller being scrolled to where the transition will end
 `progress`                  | The progress of the transition, where 0 is a neutral scroll position, >= 1 is a complete transition to the right view controller, and <= -1 is a complete transition to the left view controller. Values may be greater than 1 or less than -1 if the scroll velocity is quick enough.
 
 * * *
 
-##### `em_pageViewController:didFinishScrollingFrom:selectedViewController:transitionSuccessful:`
+##### `em_pageViewController:didFinishScrollingFrom:destinationViewController:transitionSuccessful:`
 
 Called after a page transition attempt has completed.
 
 **Declaration**
 ```swift
-optional func em_pageViewController(pageViewController: EMPageViewController, didFinishScrollingFrom previousViewController: UIViewController?, selectedViewController: UIViewController, transitionSuccessful: Bool)
+optional func em_pageViewController(pageViewController: EMPageViewController, didFinishScrollingFrom startViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)
 ```
 
 **Parameters**
 
-Parameter                | Description
------------------------- | --------------------------------------
-`pageViewController`     | The page view controller
-`previousViewController` | The currently selected view controller the transition is starting from
-`selectedViewController` | The view controller that was been attempted to be selected
-`transitionSuccessful`   | A Boolean whether the transition to the originally intended view controller was successful or not. If `false`, the transition returned to the view controller it started from.
+Parameter                   | Description
+--------------------------- | --------------------------------------
+`pageViewController`        | The page view controller
+`startViewController`       | The currently selected view controller the transition is starting from
+`destinationViewController` | The view controller that was been attempted to be selected
+`transitionSuccessful`      | A Boolean whether the transition to the destination view controller was successful or not. If `true`, the new selected view controller is `destinationViewController`. If `false`, the transition returned to the view controller it started from, so the selected view controller is `startViewController`.
 
 * * *
 
