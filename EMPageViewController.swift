@@ -68,9 +68,10 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
     private(set) var selectedViewController: UIViewController?
     private var rightViewController: UIViewController?
     
+    private(set) var scrolling = false
+    private(set) var navigationDirection: EMPageViewControllerNavigationDirection?
+    
     private var adjustingContentOffset = false // Flag used to prevent isScrolling delegate when shifting scrollView
-    private var scrolling = false // Flag to make sure willStartScrollingFrom is only called once
-    private var navigationDirection: EMPageViewControllerNavigationDirection?
     private var reloadAdjoiningViewControllersOnFinish = false
     private var didFinishScrollingCompletionHandler: ((transitionSuccessful: Bool) -> Void)?
 
@@ -95,8 +96,11 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
     
     func scrollForwardAnimated(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
         if (self.rightViewController != nil) {
-            self.didFinishScrollingCompletionHandler?(transitionSuccessful: false)
-            self.didFinishScrollingCompletionHandler = nil
+            
+            // Cancel current animation and move
+            if self.scrolling {
+                self.scrollView.setContentOffset(CGPoint(x: self.view.bounds.width * 2, y: 0), animated: false)
+            }
             
             self.didFinishScrollingCompletionHandler = completion
             self.scrollView.setContentOffset(CGPoint(x: self.view.bounds.width * 2, y: 0), animated: animated)
@@ -105,8 +109,11 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
     
     func scrollReverseAnimated(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
         if (self.leftViewController != nil) {
-            self.didFinishScrollingCompletionHandler?(transitionSuccessful: false)
-            self.didFinishScrollingCompletionHandler = nil
+
+            // Cancel current animation and move
+            if self.scrolling {
+                self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            }
             
             self.didFinishScrollingCompletionHandler = completion
             self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: animated)
