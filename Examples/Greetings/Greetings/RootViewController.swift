@@ -60,7 +60,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         
         let choiceViewController = UIAlertController(title: "Scroll To...", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        let selectedIndex = self.indexOfViewController(self.pageViewController!.selectedViewController as GreetingViewController)
+        let selectedIndex = self.indexOfViewController(self.pageViewController!.selectedViewController as! GreetingViewController)
         
         for (index, viewControllerGreeting) in enumerate(greetings) {
             
@@ -90,7 +90,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     // MARK: - EMPageViewController Data Source
     
     func em_pageViewController(pageViewController: EMPageViewController, viewControllerLeftOfViewController viewController: UIViewController) -> UIViewController? {
-        if let viewControllerIndex = self.indexOfViewController(viewController as GreetingViewController) {
+        if let viewControllerIndex = self.indexOfViewController(viewController as! GreetingViewController) {
             let leftViewController = self.viewControllerAtIndex(viewControllerIndex - 1)
             return leftViewController
         } else {
@@ -99,7 +99,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     }
     
     func em_pageViewController(pageViewController: EMPageViewController, viewControllerRightOfViewController viewController: UIViewController) -> UIViewController? {
-        if let viewControllerIndex = self.indexOfViewController(viewController as GreetingViewController) {
+        if let viewControllerIndex = self.indexOfViewController(viewController as! GreetingViewController) {
             let rightViewController = self.viewControllerAtIndex(viewControllerIndex + 1)
             return rightViewController
         } else {
@@ -112,7 +112,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
             return nil
         }
         
-        let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("GreetingViewController") as GreetingViewController
+        let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("GreetingViewController") as! GreetingViewController
         viewController.greeting = self.greetings[index]
         viewController.color = self.greetingColors[index]
         return viewController
@@ -131,15 +131,15 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
 
     func em_pageViewController(pageViewController: EMPageViewController, willStartScrollingFrom startViewController: UIViewController, destinationViewController: UIViewController) {
         
-        let startGreetingViewController = startViewController as GreetingViewController
-        let destinationGreetingViewController = destinationViewController as GreetingViewController
+        let startGreetingViewController = startViewController as! GreetingViewController
+        let destinationGreetingViewController = destinationViewController as! GreetingViewController
         
         println("Will start scrolling from \(startGreetingViewController.greeting) to \(destinationGreetingViewController.greeting).")
     }
     
     func em_pageViewController(pageViewController: EMPageViewController, isScrollingFrom startViewController: UIViewController, destinationViewController: UIViewController, progress: CGFloat) {
-        let startGreetingViewController = startViewController as GreetingViewController
-        let destinationGreetingViewController = destinationViewController as GreetingViewController
+        let startGreetingViewController = startViewController as! GreetingViewController
+        let destinationGreetingViewController = destinationViewController as! GreetingViewController
         
         // Ease the labels' alphas in and out
         let absoluteProgress = fabs(progress)
@@ -150,8 +150,8 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     }
     
     func em_pageViewController(pageViewController: EMPageViewController, didFinishScrollingFrom startViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) {
-        let startViewController = startViewController as GreetingViewController?
-        let destinationViewController = destinationViewController as GreetingViewController
+        let startViewController = startViewController as! GreetingViewController?
+        let destinationViewController = destinationViewController as! GreetingViewController
         
         // If the transition is successful, the new selected view controller is the destination view controller.
         // If it wasn't successful, the selected view controller is the start view controller
