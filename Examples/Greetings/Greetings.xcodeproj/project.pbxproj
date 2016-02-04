@@ -162,6 +162,8 @@
 		80F76ABB1ABBA99000414300 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Erik Malyak";
 				TargetAttributes = {
@@ -415,6 +417,7 @@
 				80F76AE81ABBA99000414300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		80F76AE91ABBA99000414300 /* Build configuration list for PBXNativeTarget "GreetingsTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +426,7 @@
 				80F76AEB1ABBA99000414300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
