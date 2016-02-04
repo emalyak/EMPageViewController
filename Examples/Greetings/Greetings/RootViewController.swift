@@ -89,19 +89,19 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     
     // MARK: - EMPageViewController Data Source
     
-    func em_pageViewController(pageViewController: EMPageViewController, viewControllerLeftOfViewController viewController: UIViewController) -> UIViewController? {
+    func em_pageViewController(pageViewController: EMPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         if let viewControllerIndex = self.indexOfViewController(viewController as! GreetingViewController) {
-            let leftViewController = self.viewControllerAtIndex(viewControllerIndex - 1)
-            return leftViewController
+            let beforeViewController = self.viewControllerAtIndex(viewControllerIndex - 1)
+            return beforeViewController
         } else {
             return nil
         }
     }
     
-    func em_pageViewController(pageViewController: EMPageViewController, viewControllerRightOfViewController viewController: UIViewController) -> UIViewController? {
+    func em_pageViewController(pageViewController: EMPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         if let viewControllerIndex = self.indexOfViewController(viewController as! GreetingViewController) {
-            let rightViewController = self.viewControllerAtIndex(viewControllerIndex + 1)
-            return rightViewController
+            let afterViewController = self.viewControllerAtIndex(viewControllerIndex + 1)
+            return afterViewController
         } else {
             return nil
         }
