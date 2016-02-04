@@ -15,7 +15,8 @@ In addition to the ability scroll to any view controller, you can also easily sc
 EMPageViewController is not a subclass of UIPageViewController. Instead, it's a subclass of UIViewController with a UIScrollView, written in Swift, and it has common sense delegate and data source methods that will make the development of your page-based iOS app a breeze.
 
 ## Compatibility
-* Xcode 6.1+
+* Xcode 7.0+
+* Swift 2.0+
 * iOS 7+
 * iPhone, iPad, and iPod Touch
 
@@ -37,8 +38,8 @@ Learn how to use EMPageViewController in your project by cloning this repository
     * [scrollReverseAnimated:completion:](#scrollreverseanimatedcompletion)
 
 * [EMPageViewControllerDataSource](#empageviewcontrollerdatasource)
-  * [em_pageViewController:viewControllerLeftOfViewController:](#em_pageviewcontrollerviewcontrollerleftofviewcontroller)
-  * [em_pageViewController:viewControllerRightOfViewController:](#em_pageviewcontrollerviewcontrollerrightofviewcontroller)
+  * [em_pageViewController:viewControllerBeforeViewController:](#em_pageviewcontrollerviewcontrollerbeforeviewcontroller)
+  * [em_pageViewController:viewControllerAfterViewController:](#em_pageviewcontrollerviewcontrollerafterviewcontroller)
 
 * [EMPageViewControllerDelegate](#empageviewcontrollerdelegate)
   * [em_pageViewController:willStartScrollingFrom:destinationViewController:](#em_pageviewcontrollerwillstartscrollingfromdestinationviewcontroller)
@@ -84,7 +85,7 @@ Methods for initializing and navigating the page view controller.
 
 ##### `selectViewController:direction:animated:completion:`
 
-Sets the view controller that will be selected after the animation. This method is also used to provide the first view controller that will be selected in the page view controller. If a data source has been set, the view controllers to the left and/or right of the selected view controller will also be loaded but not appear yet.
+Sets the view controller that will be selected after the animation. This method is also used to provide the first view controller that will be selected in the page view controller. If a data source has been set, the view controllers before and after the selected view controller will also be loaded but not appear yet.
 
 **Declaration**
 ```swift
@@ -102,7 +103,7 @@ Parameter              | Description
 
 ##### `scrollForwardAnimated:completion:`
 
-Transitions to the view controller right of the currently selected view controller. Also described as going to the next page.
+Transitions to the view controller right of the currently selected view controller in a horizontal orientation, or below the currently selected view controller in a vertical orientation. Also described as going to the next page.
 
 **Declaration**
 ```swift
@@ -118,7 +119,7 @@ Parameter     | Description
 
 ##### `scrollReverseAnimated:completion:`
 
-Transitions to the view controller left of the currently selected view controller. Also described as going to the previous page.
+Transitions to the view controller left of the currently selected view controller in a horizontal orientation, or above the currently selected view controller in a vertical orientation. Also described as going to the previous page.
 
 **Declaration**
 ```swift
@@ -141,13 +142,13 @@ If the data source is `nil`, gesture based scrolling will be disabled and all vi
 
 * * *
 
-##### `em_pageViewController:viewControllerLeftOfViewController:`
+##### `em_pageViewController:viewControllerBeforeViewController:`
 
-Called to optionally return a view controller that is to the left of a given view controller.
+Called to optionally return a view controller that is to the left of a given view controller in a horizontal orientation, or above a given view controller in a vertical orientation.
 
 **Declaration**
 ```swift
-func em_pageViewController(pageViewController: EMPageViewController, viewControllerLeftOfViewController viewController: UIViewController) -> UIViewController?
+func em_pageViewController(pageViewController: EMPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
 ```
 **Parameters**
 
@@ -158,17 +159,17 @@ Parameter            | Description
 
 **Return value**
 
-The view controller that is to the left of the given `viewController`, or `nil` if there is no view controller to be displayed.
+The view controller that is to the left of the given `viewController` in a horizontal orientation, or above the given `viewController` in a vertical orientation, or `nil` if there is no view controller to be displayed.
 
 * * *
 
-##### `em_pageViewController:viewControllerRightOfViewController:`
+##### `em_pageViewController:viewControllerAfterViewController:`
 
 Called to optionally return a view controller that is to the right of a given view controller.
 
 **Declaration**
 ```swift
-func em_pageViewController(pageViewController: EMPageViewController, viewControllerRightOfViewController viewController: UIViewController) -> UIViewController?
+func em_pageViewController(pageViewController: EMPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
 ```
 **Parameters**
 
@@ -179,7 +180,7 @@ Parameter            | Description
 
 **Return value**
 
-The view controller that is to the right of the given `viewController`, or `nil` if there is no view controller to be displayed.
+The view controller that is to the right of the given `viewController` in a horizontal orientation, or below the given `viewController` in a vertical orientation, or `nil` if there is no view controller to be displayed.
 
 * * *
 
@@ -231,7 +232,7 @@ Parameter                   | Description
 `pageViewController`        | The page view controller
 `startViewController`       | The currently selected view controller the transition is starting from
 `destinationViewController` | The view controller being scrolled to where the transition will end
-`progress`                  | The progress of the transition, where 0 is a neutral scroll position, >= 1 is a complete transition to the right view controller, and <= -1 is a complete transition to the left view controller. Values may be greater than 1 or less than -1 if the scroll velocity is quick enough.
+`progress`                  | The progress of the transition, where 0 is a neutral scroll position, >= 1 is a complete transition to the right view controller in a horizontal orientation, or the below view controller in a vertical orientation, and <= -1 is a complete transition to the left view controller in a horizontal orientation, or the above view controller in a vertical orientation. Values may be greater than 1 or less than -1 if the scroll velocity is quick enough.
 
 * * *
 
