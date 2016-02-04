@@ -40,12 +40,12 @@ import UIKit
     optional func em_pageViewController(pageViewController: EMPageViewController, didFinishScrollingFrom startingViewController: UIViewController?, destinationViewController:UIViewController, transitionSuccessful: Bool)
 }
 
-enum EMPageViewControllerNavigationDirection : Int {
+@objc enum EMPageViewControllerNavigationDirection : Int {
     case Forward
     case Reverse
 }
 
-enum EMPageViewControllerNavigationOrientation: Int {
+@objc enum EMPageViewControllerNavigationOrientation: Int {
     case Horizontal
     case Vertical
 }
@@ -92,14 +92,14 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         return false
     }
     
-    convenience init(orientation: EMPageViewControllerNavigationOrientation) {
+    @objc convenience init(orientation: EMPageViewControllerNavigationOrientation) {
         self.init()
         self.navigationOrientation = orientation
     }
     
     // MARK: - Public Methods
     
-    func selectViewController(viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
+    @objc func selectViewController(viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
         
         if (direction == .Forward) {
             self.rightViewController = viewController
