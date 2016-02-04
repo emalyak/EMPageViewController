@@ -453,8 +453,8 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
             }
         } else {
             if  (self.beforeViewController != nil && self.afterViewController != nil) || // It isn't at the beginning or end of the page collection
-                (self.afterViewController != nil && self.beforeViewController == nil && scrollView.contentOffset.y > fabs(scrollView.contentInset.left)) || // If it's at the beginning of the collection, the decelleration can't be triggered by scrolling away from, than torwards the inset
-                (self.beforeViewController != nil && self.afterViewController == nil && scrollView.contentOffset.y < fabs(scrollView.contentInset.right)) { // Same as the last condition, but at the end of the collection
+                (self.afterViewController != nil && self.beforeViewController == nil && scrollView.contentOffset.y > fabs(scrollView.contentInset.top)) || // If it's at the beginning of the collection, the decelleration can't be triggered by scrolling away from, than torwards the inset
+                (self.beforeViewController != nil && self.afterViewController == nil && scrollView.contentOffset.y < fabs(scrollView.contentInset.bottom)) { // Same as the last condition, but at the end of the collection
                     scrollView.setContentOffset(CGPoint(x: 0, y: self.view.bounds.height), animated: true)
             }
         }
