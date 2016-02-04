@@ -29,7 +29,11 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         super.viewDidLoad()
         
         // Instantiate EMPageViewController and set the data source and delegate to 'self'
-        let pageViewController = EMPageViewController(orientation: .Horizontal)
+        let pageViewController = EMPageViewController()
+        
+        // Or, for a vertical orientation
+        // let pageViewController = EMPageViewController(orientation: .Vertical)
+        
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
