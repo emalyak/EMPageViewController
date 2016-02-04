@@ -56,8 +56,8 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
     weak var delegate: EMPageViewControllerDelegate?
     
     // Navigation orientation
-    private var navigationOrientation: EMPageViewControllerNavigationOrientation = .Horizontal
-    var horizontal: Bool {
+    private(set) var navigationOrientation: EMPageViewControllerNavigationOrientation = .Horizontal
+    private var orientationIsHorizontal: Bool {
         return self.navigationOrientation == .Horizontal
     }
 
@@ -68,8 +68,8 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         scrollView.scrollsToTop = false
         scrollView.autoresizingMask = [.FlexibleTopMargin, .FlexibleRightMargin, .FlexibleBottomMargin, .FlexibleLeftMargin]
         scrollView.bounces = true
-        scrollView.alwaysBounceHorizontal = self.horizontal
-        scrollView.alwaysBounceVertical = !self.horizontal
+        scrollView.alwaysBounceHorizontal = self.orientationIsHorizontal
+        scrollView.alwaysBounceVertical = !self.orientationIsHorizontal
         scrollView.translatesAutoresizingMaskIntoConstraints = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
@@ -121,7 +121,7 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
             
             // Cancel current animation and move
             if self.scrolling {
-                if (self.horizontal) {
+                if self.orientationIsHorizontal {
                     self.scrollView.setContentOffset(CGPoint(x: self.view.bounds.width * 2, y: 0), animated: false)
                 } else {
                     self.scrollView.setContentOffset(CGPoint(x: 0, y: self.view.bounds.height * 2), animated: false)
@@ -131,7 +131,7 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
             
             self.didFinishScrollingCompletionHandler = completion
             self.transitionAnimated = animated
-            if (self.horizontal) {
+            if self.orientationIsHorizontal {
                 self.scrollView.setContentOffset(CGPoint(x: self.view.bounds.width * 2, y: 0), animated: animated)
             } else {
                 self.scrollView.setContentOffset(CGPoint(x: 0, y: self.view.bounds.height * 2), animated: animated)
@@ -168,7 +168,7 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         super.viewWillLayoutSubviews()
         
         self.scrollView.frame = self.view.bounds
-        if (self.horizontal) {
+        if self.orientationIsHorizontal {
             self.scrollView.contentSize = CGSize(width: self.view.bounds.width * 3, height: self.view.bounds.height)
         } else {
             self.scrollView.contentSize = CGSize(width: self.view.bounds.width, height: self.view.bounds.height * 3)
@@ -320,23 +320,23 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         var rightInset:CGFloat = 0
         
         if (self.leftViewController == nil) {
-            leftInset = horizontal ? -viewWidth : -viewHeight
+            leftInset = self.orientationIsHorizontal ? -viewWidth : -viewHeight
         }
         
         if (self.rightViewController == nil) {
-            rightInset = horizontal ? -viewWidth : -viewHeight
+            rightInset = self.orientationIsHorizontal ? -viewWidth : -viewHeight
         }
         
         self.adjustingContentOffset = true
-        self.scrollView.contentOffset = CGPoint(x: self.horizontal ? viewWidth : 0, y: self.horizontal ? 0 : viewHeight)
-        if (self.horizontal) {
+        self.scrollView.contentOffset = CGPoint(x: self.orientationIsHorizontal ? viewWidth : 0, y: self.orientationIsHorizontal ? 0 : viewHeight)
+        if self.orientationIsHorizontal {
             self.scrollView.contentInset = UIEdgeInsetsMake(0, leftInset, 0, rightInset)
         } else {
             self.scrollView.contentInset = UIEdgeInsetsMake(leftInset, 0, rightInset, 0)
         }
         self.adjustingContentOffset = false
         
-        if (self.horizontal) {
+        if self.orientationIsHorizontal {
             self.leftViewController?.view.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
             self.selectedViewController?.view.frame = CGRect(x: viewWidth, y: 0, width: viewWidth, height: viewHeight)
             self.rightViewController?.view.frame = CGRect(x: viewWidth * 2, y: 0, width: viewWidth, height: viewHeight)
@@ -372,8 +372,8 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if !adjustingContentOffset {
         
-            let distance = self.horizontal ? self.view.bounds.width : self.view.bounds.height
-            let progress = ((self.horizontal ? scrollView.contentOffset.x : scrollView.contentOffset.y) - distance) / distance
+            let distance = self.orientationIsHorizontal ? self.view.bounds.width : self.view.bounds.height
+            let progress = ((self.orientationIsHorizontal ? scrollView.contentOffset.x : scrollView.contentOffset.y) - distance) / distance
             
             // Scrolling forward / right
             if (progress > 0) {
@@ -445,7 +445,7 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         // setContentOffset is called to center the selected view after bounces
         // This prevents yucky behavior at the beginning and end of the page collection by making sure setContentOffset is called only if...
         
-        if (self.horizontal) {
+        if self.orientationIsHorizontal {
             if  (self.leftViewController != nil && self.rightViewController != nil) || // It isn't at the beginning or end of the page collection
                 (self.rightViewController != nil && self.leftViewController == nil && scrollView.contentOffset.x > fabs(scrollView.contentInset.left)) || // If it's at the beginning of the collection, the decelleration can't be triggered by scrolling away from, than torwards the inset
                 (self.leftViewController != nil && self.rightViewController == nil && scrollView.contentOffset.x < fabs(scrollView.contentInset.right)) { // Same as the last condition, but at the end of the collection
