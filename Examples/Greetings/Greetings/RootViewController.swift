@@ -38,6 +38,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         pageViewController.delegate = self
         
         // Set the initially selected view controller
+        // IMPORTANT: If you are using a dataSource, make sure you set it BEFORE calling selectViewController:direction:animated:completion
         let currentViewController = self.viewControllerAtIndex(0)!
         pageViewController.selectViewController(currentViewController, direction: .Forward, animated: false, completion: nil)
         
