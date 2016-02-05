@@ -92,14 +92,14 @@ class EMPageViewController: UIViewController, UIScrollViewDelegate {
         return false
     }
     
-    @objc convenience init(orientation: EMPageViewControllerNavigationOrientation) {
+    convenience init(orientation: EMPageViewControllerNavigationOrientation) {
         self.init()
         self.navigationOrientation = orientation
     }
     
     // MARK: - Public Methods
     
-    @objc func selectViewController(viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
+    func selectViewController(viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?) {
         
         if (direction == .Forward) {
             self.afterViewController = viewController
