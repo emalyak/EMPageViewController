@@ -21,7 +21,21 @@ EMPageViewController is not a subclass of UIPageViewController. Instead, it's a 
 * iPhone, iPad, and iPod Touch
 
 ## Installation
-Simply include [EMPageViewController.swift](EMPageViewController.swift) into your project.
+
+There are two ways to install. Please note that the *CocoaPods* method requires iOS 8+, whereas the *file include* method requires iOS 7+
+
+### CocoaPods
+To install using CocoaPods, specify the following in your `Podfile`:
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'EMPageViewController', '2.0.0-beta.1'
+```
+
+### File include
+Simply include the file [EMPageViewController.swift](EMPageViewController/EMPageViewController.swift) into your project.
 
 ## Example usage / Demo
 Learn how to use EMPageViewController in your project by cloning this repository and opening the Xcode project file *Greetings.xcodeproj* in [Examples/Greetings](Examples/Greetings). The code for initializing EMPageViewController and implementing its delegate and data source is located in [RootViewController.swift](Examples/Greetings/Greetings/RootViewController.swift).
