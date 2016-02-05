@@ -59,6 +59,10 @@ Properties for providing view controllers and receiving messages during navigati
 
 The object that provides view controllers on an as-needed basis throughout the navigation of the page view controller. If the data source is `nil`, gesture based scrolling will be disabled and all view controllers must be provided through `selectViewController:direction:animated:completion:`.
 
+**Important**
+
+If you are using a data source, make sure you set `dataSource` before calling `selectViewController:direction:animated:completion:`
+
 **Declaration**
 ```swift
 weak var dataSource:EMPageViewControllerDataSource!
@@ -86,6 +90,10 @@ Methods for initializing and navigating the page view controller.
 ##### `selectViewController:direction:animated:completion:`
 
 Sets the view controller that will be selected after the animation. This method is also used to provide the first view controller that will be selected in the page view controller. If a data source has been set, the view controllers before and after the selected view controller will also be loaded but not appear yet.
+
+**Important**
+
+If you are using a data source, make sure you set `dataSource` before calling `selectViewController:direction:animated:completion:`
 
 **Declaration**
 ```swift
