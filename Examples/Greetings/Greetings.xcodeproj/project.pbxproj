@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8079229B1C652B140067DAD2 /* EMPageViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807922921C652AE50067DAD2 /* EMPageViewController.framework */; };
+		8079229C1C652B140067DAD2 /* EMPageViewController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 807922921C652AE50067DAD2 /* EMPageViewController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80F76AC91ABBA99000414300 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F76AC81ABBA99000414300 /* AppDelegate.swift */; };
 		80F76ACB1ABBA99000414300 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F76ACA1ABBA99000414300 /* RootViewController.swift */; };
 		80F76AD21ABBA99000414300 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80F76AD01ABBA99000414300 /* Main.storyboard */; };
@@ -14,10 +16,30 @@
 		80F76AD71ABBA99000414300 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F76AD51ABBA99000414300 /* LaunchScreen.xib */; };
 		80F76AE31ABBA99000414300 /* GreetingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F76AE21ABBA99000414300 /* GreetingsTests.swift */; };
 		80F76AEF1ABBA9E800414300 /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F76AED1ABBA9E800414300 /* GreetingViewController.swift */; };
-		80F76AF11ABBAA4200414300 /* EMPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F76AF01ABBAA4200414300 /* EMPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		807922911C652AE50067DAD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8079228C1C652AE50067DAD2 /* EMPageViewController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 807922701C651DE90067DAD2;
+			remoteInfo = EMPageViewController;
+		};
+		807922931C652AE50067DAD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8079228C1C652AE50067DAD2 /* EMPageViewController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8079227A1C651DE90067DAD2;
+			remoteInfo = EMPageViewControllerTests;
+		};
+		8079229D1C652B140067DAD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8079228C1C652AE50067DAD2 /* EMPageViewController.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8079226F1C651DE90067DAD2;
+			remoteInfo = EMPageViewController;
+		};
 		80F76ADD1ABBA99000414300 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 80F76ABB1ABBA99000414300 /* Project object */;
@@ -27,7 +49,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		8079229F1C652B140067DAD2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8079229C1C652B140067DAD2 /* EMPageViewController.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		8079228C1C652AE50067DAD2 /* EMPageViewController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EMPageViewController.xcodeproj; path = ../../EMPageViewController.xcodeproj; sourceTree = "<group>"; };
 		80F76AC31ABBA99000414300 /* Greetings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Greetings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F76AC71ABBA99000414300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80F76AC81ABBA99000414300 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -39,7 +76,6 @@
 		80F76AE11ABBA99000414300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80F76AE21ABBA99000414300 /* GreetingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingsTests.swift; sourceTree = "<group>"; };
 		80F76AED1ABBA9E800414300 /* GreetingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
-		80F76AF01ABBAA4200414300 /* EMPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EMPageViewController.swift; path = ../../../EMPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8079229B1C652B140067DAD2 /* EMPageViewController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +97,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8079228D1C652AE50067DAD2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				807922921C652AE50067DAD2 /* EMPageViewController.framework */,
+				807922941C652AE50067DAD2 /* EMPageViewControllerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		80F76ABA1ABBA99000414300 = {
 			isa = PBXGroup;
 			children = (
 				80F76AC51ABBA99000414300 /* Greetings */,
 				80F76ADF1ABBA99000414300 /* GreetingsTests */,
 				80F76AC41ABBA99000414300 /* Products */,
+				8079228C1C652AE50067DAD2 /* EMPageViewController.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,7 +128,6 @@
 		80F76AC51ABBA99000414300 /* Greetings */ = {
 			isa = PBXGroup;
 			children = (
-				80F76AF01ABBAA4200414300 /* EMPageViewController.swift */,
 				80F76AC81ABBA99000414300 /* AppDelegate.swift */,
 				80F76ACA1ABBA99000414300 /* RootViewController.swift */,
 				80F76AED1ABBA9E800414300 /* GreetingViewController.swift */,
@@ -128,10 +174,12 @@
 				80F76ABF1ABBA99000414300 /* Sources */,
 				80F76AC01ABBA99000414300 /* Frameworks */,
 				80F76AC11ABBA99000414300 /* Resources */,
+				8079229F1C652B140067DAD2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8079229E1C652B140067DAD2 /* PBXTargetDependency */,
 			);
 			name = Greetings;
 			productName = Greetings;
@@ -187,6 +235,12 @@
 			mainGroup = 80F76ABA1ABBA99000414300;
 			productRefGroup = 80F76AC41ABBA99000414300 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8079228D1C652AE50067DAD2 /* Products */;
+					ProjectRef = 8079228C1C652AE50067DAD2 /* EMPageViewController.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				80F76AC21ABBA99000414300 /* Greetings */,
@@ -194,6 +248,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		807922921C652AE50067DAD2 /* EMPageViewController.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = EMPageViewController.framework;
+			remoteRef = 807922911C652AE50067DAD2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		807922941C652AE50067DAD2 /* EMPageViewControllerTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = EMPageViewControllerTests.xctest;
+			remoteRef = 807922931C652AE50067DAD2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		80F76AC11ABBA99000414300 /* Resources */ = {
@@ -223,7 +294,6 @@
 				80F76ACB1ABBA99000414300 /* RootViewController.swift in Sources */,
 				80F76AC91ABBA99000414300 /* AppDelegate.swift in Sources */,
 				80F76AEF1ABBA9E800414300 /* GreetingViewController.swift in Sources */,
-				80F76AF11ABBAA4200414300 /* EMPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +308,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8079229E1C652B140067DAD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EMPageViewController;
+			targetProxy = 8079229D1C652B140067DAD2 /* PBXContainerItemProxy */;
+		};
 		80F76ADE1ABBA99000414300 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 80F76AC21ABBA99000414300 /* Greetings */;
@@ -348,6 +423,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Greetings/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -358,6 +434,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Greetings/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

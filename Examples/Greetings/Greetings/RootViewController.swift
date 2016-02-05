@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EMPageViewController
 
 class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPageViewControllerDelegate {
 
