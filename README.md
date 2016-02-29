@@ -1,6 +1,6 @@
 # EMPageViewController
 
-![EMPageViewController Demo](greetings-demo.gif)
+![EMPageViewController Demo](https://github.com/emalyak/EMPageViewController/blob/master/greetings-demo.gif)
 
 ## A better page view controller for iOS
 EMPageViewController is a full replacement for UIPageViewController with the features and predictability you’ve always wanted from a page view controller.
@@ -17,6 +17,7 @@ EMPageViewController is not a subclass of UIPageViewController. Instead, it's a 
 ## Compatibility
 * Xcode 7.0+
 * Swift 2.0+
+* Objective-C compatible
 * iOS 7+
 * iPhone, iPad, and iPod Touch
 
