@@ -55,8 +55,6 @@ Full documentation is available on [CocoaDocs](http://cocoadocs.org/docsets/EMPa
 * [EMPageViewControllerDataSource](http://cocoadocs.org/docsets/EMPageViewController/2.0.0/Protocols/EMPageViewControllerDataSource.html)
 * [EMPageViewControllerDelegate](http://cocoadocs.org/docsets/EMPageViewController/2.0.0/Protocols/EMPageViewControllerDelegate.html)
 
-* * *
-
 ## Contact
 
 Feedback? Suggestions? Just want to say hello? Contact me anytime on Twitter [@emalyak](https://twitter.com/emalyak). You can also visit my website [erikmalyak.com](http://erikmalyak.com) for other ways to get in touch.
