@@ -32,250 +32,28 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'EMPageViewController', '2.0.0-beta.1'
+pod 'EMPageViewController'
 ```
 
 ### File include
-Simply include the file [EMPageViewController.swift](EMPageViewController/EMPageViewController.swift) into your project.
+Simply include the file [EMPageViewController.swift](https://github.com/emalyak/EMPageViewController/blob/master/EMPageViewController/EMPageViewController.swift) into your project.
 
 ## Example usage / Demo
-Learn how to use EMPageViewController in your project by cloning this repository and opening the Xcode project file *Greetings.xcodeproj* in [Examples/Greetings](Examples/Greetings). The code for initializing EMPageViewController and implementing its delegate and data source is located in [RootViewController.swift](Examples/Greetings/Greetings/RootViewController.swift).
+Learn how to use EMPageViewController in your project by cloning this repository and opening the Xcode project file *Greetings.xcodeproj* in [Examples/Greetings](https://github.com/emalyak/EMPageViewController/blob/master/Examples/Greetings). The code for initializing EMPageViewController and implementing its delegate and data source is located in [RootViewController.swift](https://github.com/emalyak/EMPageViewController/blob/master/Examples/Greetings/Greetings/RootViewController.swift).
 
 ## Documentation
+Full documentation is available on [CocoaDocs](http://cocoadocs.org/docsets/EMPageViewController)
 
-* [EMPageViewController](#empageviewcontroller-1)
-  * [Properties](#properties)
-    * [dataSource](#datasource)
-    * [delegate](#delegate)
-  * [Methods](#methods)
-    * [selectViewController:direction:animated:completion:](#selectviewcontrollerdirectionanimatedcompletion)
-    * [scrollForwardAnimated:completion:](#scrollforwardanimatedcompletion)
-    * [scrollReverseAnimated:completion:](#scrollreverseanimatedcompletion)
+### Classes
+* [EMPageViewController](http://cocoadocs.org/docsets/EMPageViewController/2.0.0/Classes/EMPageViewController.html)
 
-* [EMPageViewControllerDataSource](#empageviewcontrollerdatasource)
-  * [em_pageViewController:viewControllerBeforeViewController:](#em_pageviewcontrollerviewcontrollerbeforeviewcontroller)
-  * [em_pageViewController:viewControllerAfterViewController:](#em_pageviewcontrollerviewcontrollerafterviewcontroller)
+### Enums
+* [EMPageViewControllerNavigationDirection](http://cocoadocs.org/docsets/EMPageViewController/2.0.0/Enums/EMPageViewControllerNavigationDirection.html)
+* [EMPageViewControllerNavigationOrientation](http://cocoadocs.org/docsets/EMPageViewController/2.0.0/Enums/EMPageViewControllerNavigationOrientation.html)
 
-* [EMPageViewControllerDelegate](#empageviewcontrollerdelegate)
-  * [em_pageViewController:willStartScrollingFrom:destinationViewController:](#em_pageviewcontrollerwillstartscrollingfromdestinationviewcontroller)
-  * [em_pageViewController:isScrollingFrom:destinationViewController:progress:](#em_pageviewcontrollerisscrollingfromdestinationviewcontrollerprogress)
-  * [em_pageViewController:didFinishScrollingFrom:destinationViewController:transitionSuccessful:](#em_pageviewcontrollerdidfinishscrollingfromdestinationviewcontrollertransitionsuccessful)
-
-### EMPageViewController
-`EMPageViewController` allows for page navigation through different view controllers, or "pages". View controllers can be navigated via swiping gestures, or called programmatically. 
-
-#### Properties
-
-Properties for providing view controllers and receiving messages during navigation.
-
-* * *
-
-##### `dataSource`
-
-The object that provides view controllers on an as-needed basis throughout the navigation of the page view controller. If the data source is `nil`, gesture based scrolling will be disabled and all view controllers must be provided through `selectViewController:direction:animated:completion:`.
-
-**Important**
-
-If you are using a data source, make sure you set `dataSource` before calling `selectViewController:direction:animated:completion:`
-
-**Declaration**
-```swift
-weak var dataSource:EMPageViewControllerDataSource!
-```
-
-* * *
-
-##### `delegate`
-
-The object that receives messages throughout the navigation of the page view controller.
-
-**Declaration**
-```swift
-weak var delegate:EMPageViewControllerDelegate?
-```
-
-* * *
-
-#### Methods
-
-Methods for initializing and navigating the page view controller.
-
-* * *
-
-##### `selectViewController:direction:animated:completion:`
-
-Sets the view controller that will be selected after the animation. This method is also used to provide the first view controller that will be selected in the page view controller. If a data source has been set, the view controllers before and after the selected view controller will also be loaded but not appear yet.
-
-**Important**
-
-If you are using a data source, make sure you set `dataSource` before calling `selectViewController:direction:animated:completion:`
-
-**Declaration**
-```swift
-func selectViewController(viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?)
-```
-
-Parameter              | Description
----------------------- | --------------------------------------
-`selectViewController` | The view controller to be selected
-`direction`            | The direction of the navigation and animation if applicable
-`animated`             | A Boolean whether or not to animate the transition
-`completion`           | A block that's called after the transition is finished. The block parameter `transitionSuccessful` is true if the transition to the selected view controller was completed successfully.
-
-* * *
-
-##### `scrollForwardAnimated:completion:`
-
-Transitions to the view controller right of the currently selected view controller in a horizontal orientation, or below the currently selected view controller in a vertical orientation. Also described as going to the next page.
-
-**Declaration**
-```swift
-func scrollForwardAnimated(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?)
-```
-
-Parameter     | Description
-------------- | --------------------------------------
-`animated`    | A Boolean whether or not to animate the transition
-`completion`  | A block that's called after the transition is finished. The block parameter `transitionSuccessful` is `true` if the transition to the selected view controller was completed successfully. If `false`, the transition returned to the view controller it started from.
-
-* * *
-
-##### `scrollReverseAnimated:completion:`
-
-Transitions to the view controller left of the currently selected view controller in a horizontal orientation, or above the currently selected view controller in a vertical orientation. Also described as going to the previous page.
-
-**Declaration**
-```swift
-func scrollReverseAnimated(animated: Bool, completion: ((transitionSuccessful: Bool) -> Void)?)
-```
-
-Parameter     | Description
-------------- | --------------------------------------
-`animated`    | A Boolean whether or not to animate the transition
-`completion`  | A block that's called after the transition is finished. The block parameter `transitionSuccessful` is `true` if the transition to the selected view controller was completed successfully. If `false`, the transition returned to the view controller it started from.
-
-* * * 
-
-### EMPageViewControllerDataSource
-The `EMPageViewControllerDataSource` protocol is adopted to provide the view controllers that are displayed when the user scrolls through pages. Methods are called on an as-needed basis.
-
-Each method returns a UIViewController object or `nil` if there are no view controllers to be displayed.
-
-If the data source is `nil`, gesture based scrolling will be disabled and all view controllers must be provided through `selectViewController:direction:animated:completion:`.
-
-* * *
-
-##### `em_pageViewController:viewControllerBeforeViewController:`
-
-Called to optionally return a view controller that is to the left of a given view controller in a horizontal orientation, or above a given view controller in a vertical orientation.
-
-**Declaration**
-```swift
-func em_pageViewController(pageViewController: EMPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
-```
-**Parameters**
-
-Parameter            | Description
--------------------- | --------------------------------------
-`pageViewController` | The page view controller
-`viewController`     | The point of reference view controller
-
-**Return value**
-
-The view controller that is to the left of the given `viewController` in a horizontal orientation, or above the given `viewController` in a vertical orientation, or `nil` if there is no view controller to be displayed.
-
-* * *
-
-##### `em_pageViewController:viewControllerAfterViewController:`
-
-Called to optionally return a view controller that is to the right of a given view controller.
-
-**Declaration**
-```swift
-func em_pageViewController(pageViewController: EMPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
-```
-**Parameters**
-
-Parameter            | Description
--------------------- | --------------------------------------
-`pageViewController` | The page view controller
-`viewController`     | The point of reference view controller
-
-**Return value**
-
-The view controller that is to the right of the given `viewController` in a horizontal orientation, or below the given `viewController` in a vertical orientation, or `nil` if there is no view controller to be displayed.
-
-* * *
-
-### EMPageViewControllerDelegate
-
-The `EMPageViewControllerDelegate` protocol is adopted to receive messages for all major events of the page transition process.
-
-* * *
-
-##### `em_pageViewController:willStartScrollingFrom:destinationViewController:`
-
-Called before scrolling to a new view controller.
-
-This method will not be called if the start view controller is `nil`. A common scenario where this will occur is when you initialize the page view controller and use `selectViewController:direction:animated:completion:` to load the first controller.
-
-**Declaration**
-```swift
-optional func em_pageViewController(pageViewController: EMPageViewController, willStartScrollingFrom startViewController: UIViewController, destinationViewController: UIViewController)
-```
-
-**Parameters**
-
-Parameter                   | Description
---------------------------- | --------------------------------------
-`pageViewController`        | The page view controller
-`startViewController`       | The currently selected view controller the transition is starting from
-`destinationViewController` | The view controller being scrolled to where the transition will end
-
-**Note**
-If bouncing is enabled, it is possible this method will be called more than once for one page transition. It can be called before the initial scroll to the destination view controller (which is when it is usually called), and it can also be called when the scroll momentum carries over slightly to the view controller after the original destination view controller.
-
-* * *
-
-##### `em_pageViewController:isScrollingFrom:destinationViewController:progress:`
-
-Called whenever there has been a scroll position change in a page transition. This method is very useful if you need to know the exact progress of the page transition animation.
-
-This method will not be called if the start view controller is `nil`. A common scenario where this will occur is when you initialize the page view controller and use `selectViewController:direction:animated:completion:` to load the first controller.
-
-**Declaration**
-```swift
-optional func em_pageViewController(pageViewController: EMPageViewController, isScrollingFrom startViewController: UIViewController, destinationViewController: UIViewController, progress: CGFloat)
-```
-
-**Parameters**
-
-Parameter                   | Description
---------------------------- | --------------------------------------
-`pageViewController`        | The page view controller
-`startViewController`       | The currently selected view controller the transition is starting from
-`destinationViewController` | The view controller being scrolled to where the transition will end
-`progress`                  | The progress of the transition, where 0 is a neutral scroll position, >= 1 is a complete transition to the right view controller in a horizontal orientation, or the below view controller in a vertical orientation, and <= -1 is a complete transition to the left view controller in a horizontal orientation, or the above view controller in a vertical orientation. Values may be greater than 1 or less than -1 if the scroll velocity is quick enough.
-
-* * *
-
-##### `em_pageViewController:didFinishScrollingFrom:destinationViewController:transitionSuccessful:`
-
-Called after a page transition attempt has completed.
-
-**Declaration**
-```swift
-optional func em_pageViewController(pageViewController: EMPageViewController, didFinishScrollingFrom startViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)
-```
-
-**Parameters**
-
-Parameter                   | Description
---------------------------- | --------------------------------------
-`pageViewController`        | The page view controller
-`startViewController`       | The currently selected view controller the transition is starting from
-`destinationViewController` | The view controller that was been attempted to be selected
-`transitionSuccessful`      | A Boolean whether the transition to the destination view controller was successful or not. If `true`, the new selected view controller is `destinationViewController`. If `false`, the transition returned to the view controller it started from, so the selected view controller is `startViewController`.
+### Protocols
+* [EMPageViewControllerDataSource](http://cocoadocs.org/docsets/EMPageViewController/2.0.0/Protocols/EMPageViewControllerDataSource.html)
+* [EMPageViewControllerDelegate](http://cocoadocs.org/docsets/EMPageViewController/2.0.0/Protocols/EMPageViewControllerDelegate.html)
 
 * * *
 
@@ -284,6 +62,6 @@ Parameter                   | Description
 Feedback? Suggestions? Just want to say hello? Contact me anytime on Twitter [@emalyak](https://twitter.com/emalyak). You can also visit my website [erikmalyak.com](http://erikmalyak.com) for other ways to get in touch.
 
 ## License
-Copyright (c) 2015 [Erik Malyak](http://erikmalyak.com)
+Copyright (c) 2015-2016 [Erik Malyak](http://erikmalyak.com)
 
-[MIT License](LICENSE)
+[MIT License](https://github.com/emalyak/EMPageViewController/blob/master/LICENSE)
