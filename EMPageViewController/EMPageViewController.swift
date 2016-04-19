@@ -281,6 +281,10 @@ public class EMPageViewController: UIViewController, UIScrollViewDelegate {
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
+        guard !scrolling else {
+            return
+        }
+        
         self.scrollView.frame = self.view.bounds
         if self.orientationIsHorizontal {
             self.scrollView.contentSize = CGSize(width: self.view.bounds.width * 3, height: self.view.bounds.height)
