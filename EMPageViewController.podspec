@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "EMPageViewController"
-  s.version          = "2.0.1"
+  s.version          = "2.0.2"
   s.summary          = "A better page view controller for iOS."
   s.homepage         = "https://github.com/emalyak/EMPageViewController"
   s.license          = { :type => "MIT", :file => "LICENSE" }
