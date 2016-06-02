@@ -45,15 +45,15 @@ Learn how to use EMPageViewController in your project by cloning this repository
 Full documentation is available on [CocoaDocs](http://cocoadocs.org/docsets/EMPageViewController)
 
 ### Classes
-* [EMPageViewController](http://cocoadocs.org/docsets/EMPageViewController/2.0.1/Classes/EMPageViewController.html)
+* [EMPageViewController](http://cocoadocs.org/docsets/EMPageViewController/2.0.2/Classes/EMPageViewController.html)
 
 ### Enums
-* [EMPageViewControllerNavigationDirection](http://cocoadocs.org/docsets/EMPageViewController/2.0.1/Enums/EMPageViewControllerNavigationDirection.html)
-* [EMPageViewControllerNavigationOrientation](http://cocoadocs.org/docsets/EMPageViewController/2.0.1/Enums/EMPageViewControllerNavigationOrientation.html)
+* [EMPageViewControllerNavigationDirection](http://cocoadocs.org/docsets/EMPageViewController/2.0.2/Enums/EMPageViewControllerNavigationDirection.html)
+* [EMPageViewControllerNavigationOrientation](http://cocoadocs.org/docsets/EMPageViewController/2.0.2/Enums/EMPageViewControllerNavigationOrientation.html)
 
 ### Protocols
-* [EMPageViewControllerDataSource](http://cocoadocs.org/docsets/EMPageViewController/2.0.1/Protocols/EMPageViewControllerDataSource.html)
-* [EMPageViewControllerDelegate](http://cocoadocs.org/docsets/EMPageViewController/2.0.1/Protocols/EMPageViewControllerDelegate.html)
+* [EMPageViewControllerDataSource](http://cocoadocs.org/docsets/EMPageViewController/2.0.2/Protocols/EMPageViewControllerDataSource.html)
+* [EMPageViewControllerDelegate](http://cocoadocs.org/docsets/EMPageViewController/2.0.2/Protocols/EMPageViewControllerDelegate.html)
 
 ## Contact
 
