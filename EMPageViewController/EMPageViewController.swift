@@ -398,20 +398,12 @@ public class EMPageViewController: UIViewController, UIScrollViewDelegate {
     
     private func loadBeforeViewControllerForSelectedViewController(selectedViewController:UIViewController) {
         // Retreive the new before controller from the data source if available, otherwise set as nil
-        if let beforeViewController = self.dataSource?.em_pageViewController(self, viewControllerBeforeViewController: selectedViewController) {
-            self.beforeViewController = beforeViewController
-        } else {
-            self.beforeViewController = nil
-        }
+        self.beforeViewController = self.dataSource?.em_pageViewController(self, viewControllerBeforeViewController: selectedViewController)
     }
     
     private func loadAfterViewControllerForSelectedViewController(selectedViewController:UIViewController) {
         // Retreive the new after controller from the data source if available, otherwise set as nil
-        if let afterViewController = self.dataSource?.em_pageViewController(self, viewControllerAfterViewController: selectedViewController) {
-            self.afterViewController = afterViewController
-        } else {
-            self.afterViewController = nil
-        }
+        self.afterViewController = self.dataSource?.em_pageViewController(self, viewControllerAfterViewController: selectedViewController)
     }
     
     
