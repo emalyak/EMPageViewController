@@ -40,7 +40,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         
         // Set the initially selected view controller
         // IMPORTANT: If you are using a dataSource, make sure you set it BEFORE calling selectViewController:direction:animated:completion
-        let currentViewController = self.viewControllerAtIndex(0)!
+        let currentViewController = self.viewController(at: 0)!
         pageViewController.selectViewController(currentViewController, direction: .forward, animated: false, completion: nil)
         
         // Add EMPageViewController to the root view controller
@@ -66,7 +66,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         
         let choiceViewController = UIAlertController(title: "Scroll To...", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        let selectedIndex = self.indexOfViewController(self.pageViewController!.selectedViewController as! GreetingViewController)!
+        let selectedIndex = self.index(of: self.pageViewController!.selectedViewController as! GreetingViewController)!
         
         for (index, viewControllerGreeting) in greetings.enumerated() {
             
@@ -74,7 +74,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
             
                 let action = UIAlertAction(title: viewControllerGreeting, style: UIAlertActionStyle.default, handler: { (alertAction) in
                     
-                    let viewController = self.viewControllerAtIndex(index)!
+                    let viewController = self.viewController(at: index)!
                     
                     let direction:EMPageViewControllerNavigationDirection = index > selectedIndex ? .forward : .reverse
                     
@@ -96,8 +96,8 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     // MARK: - EMPageViewController Data Source
     
     func em_pageViewController(_ pageViewController: EMPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        if let viewControllerIndex = self.indexOfViewController(viewController as! GreetingViewController) {
-            let beforeViewController = self.viewControllerAtIndex(viewControllerIndex - 1)
+        if let viewControllerIndex = self.index(of: viewController as! GreetingViewController) {
+            let beforeViewController = self.viewController(at: viewControllerIndex - 1)
             return beforeViewController
         } else {
             return nil
@@ -105,15 +105,15 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     }
     
     func em_pageViewController(_ pageViewController: EMPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        if let viewControllerIndex = self.indexOfViewController(viewController as! GreetingViewController) {
-            let afterViewController = self.viewControllerAtIndex(viewControllerIndex + 1)
+        if let viewControllerIndex = self.index(of: viewController as! GreetingViewController) {
+            let afterViewController = self.viewController(at: viewControllerIndex + 1)
             return afterViewController
         } else {
             return nil
         }
     }
     
-    func viewControllerAtIndex(_ index: Int) -> GreetingViewController? {
+    func viewController(at index: Int) -> GreetingViewController? {
         if (self.greetings.count == 0) || (index < 0) || (index >= self.greetings.count) {
             return nil
         }
@@ -124,7 +124,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         return viewController
     }
     
-    func indexOfViewController(_ viewController: GreetingViewController) -> Int? {
+    func index(of viewController: GreetingViewController) -> Int? {
         if let greeting: String = viewController.greeting {
             return self.greetings.index(of: greeting)
         } else {
@@ -163,13 +163,13 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         // If it wasn't successful, the selected view controller is the start view controller
         if transitionSuccessful {
             
-            if (self.indexOfViewController(destinationViewController) == 0) {
+            if (self.index(of: destinationViewController) == 0) {
                 self.reverseButton.isEnabled = false
             } else {
                 self.reverseButton.isEnabled = true
             }
             
-            if (self.indexOfViewController(destinationViewController) == self.greetings.count - 1) {
+            if (self.index(of: destinationViewController) == self.greetings.count - 1) {
                 self.forwardButton.isEnabled = false
             } else {
                 self.forwardButton.isEnabled = true
