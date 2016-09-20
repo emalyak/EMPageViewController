@@ -11,7 +11,7 @@ EMPageViewController gives your delegate messages for every step of the page tra
 ### Convenient navigation methods
 In addition to the ability scroll to any view controller, you can also easily scroll to the next or previous page without gestures if your app has navigation buttons.
 
-### Written in Swift
+### Written in Swift (with support for Objective-C)
 EMPageViewController is not a subclass of UIPageViewController. Instead, it's a subclass of UIViewController with a UIScrollView, written in Swift, and it has common sense delegate and data source methods that will make the development of your page-based iOS app a breeze.
 
 ## Compatibility
@@ -39,7 +39,13 @@ pod 'EMPageViewController'
 Simply include the file [EMPageViewController.swift](https://github.com/emalyak/EMPageViewController/blob/master/EMPageViewController/EMPageViewController.swift) into your project.
 
 ## Example usage / Demo
-Learn how to use EMPageViewController in your project by cloning this repository and opening the Xcode project file *Greetings.xcodeproj* in [Examples/Greetings](https://github.com/emalyak/EMPageViewController/blob/master/Examples/Greetings). The code for initializing EMPageViewController and implementing its delegate and data source is located in [RootViewController.swift](https://github.com/emalyak/EMPageViewController/blob/master/Examples/Greetings/Greetings/RootViewController.swift).
+Learn how to use EMPageViewController in your project by cloning this repository and opening the Xcode project file in:
+* Swift: [Examples/Greetings](https://github.com/emalyak/EMPageViewController/blob/master/Examples/Greetings).
+* Objective-C: [Examples/Greetings-ObjC](https://github.com/emalyak/EMPageViewController/blob/master/Examples/Greetings-ObjC).
+
+The code for initializing EMPageViewController and implementing its delegate and data source is located in:
+* Swift: [RootViewController.swift](https://github.com/emalyak/EMPageViewController/blob/master/Examples/Greetings/Greetings/RootViewController.swift)
+* Objective-C: [RootViewController.m](https://github.com/emalyak/EMPageViewController/blob/master/Examples/Greetings-ObjC/Greetings-ObjC/RootViewController.m)
 
 ## Documentation
 Full documentation is available on [CocoaDocs](http://cocoadocs.org/docsets/EMPageViewController)
