@@ -192,7 +192,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
 
         - important: If you are using a data source, make sure you set `dataSource` before calling `selectViewController:direction:animated:completion:`
 
-        - parameter selectViewController: The view controller to be selected.
+        - parameter viewController: The view controller to be selected.
         - parameter direction: The direction of the navigation and animation, if applicable.
         - parameter completion: A block that's called after the transition is finished. The block parameter `transitionSuccessful` is `true` if the transition to the selected view controller was completed successfully.
     */
@@ -219,6 +219,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
      - parameter animated: A Boolean whether or not to animate the transition
      - parameter completion: A block that's called after the transition is finished. The block parameter `transitionSuccessful` is `true` if the transition to the selected view controller was completed successfully. If `false`, the transition returned to the view controller it started from.
      */
+    @objc(scrollForwardAnimated:completion:)
     open func scrollForward(animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
         
         if (self.afterViewController != nil) {
@@ -250,6 +251,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
      - parameter animated: A Boolean whether or not to animate the transition
      - parameter completion: A block that's called after the transition is finished. The block parameter `transitionSuccessful` is `true` if the transition to the selected view controller was completed successfully. If `false`, the transition returned to the view controller it started from.
      */
+    @objc(scrollReverseAnimated:completion:)
     open func scrollReverse(animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
         if (self.beforeViewController != nil) {
             
@@ -265,12 +267,12 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     }
     
 
-    @available(*, unavailable, renamed: "scrollForward(animated:completion:)")
+    @nonobjc @available(*, unavailable, renamed: "scrollForward(animated:completion:)")
     open func scrollForwardAnimated(_ animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
         self.scrollForward(animated: animated, completion: completion)
     }
 
-    @available(*, unavailable, renamed: "scrollReverse(animated:completion:)")
+    @nonobjc @available(*, unavailable, renamed: "scrollReverse(animated:completion:)")
     open func scrollReverseAnimated(_ animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
         self.scrollReverse(animated: animated, completion: completion)
     }
