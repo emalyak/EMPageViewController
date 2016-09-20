@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A319" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4Mh-bS-L3o">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Root View Controller-->
+        <scene sceneID="SvA-Y0-kf0">
+            <objects>
+                <viewController id="4Mh-bS-L3o" customClass="RootViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8hL-yd-T3V"/>
+                        <viewControllerLayoutGuide type="bottom" id="eo6-HN-Lcx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GKi-HH-Zwy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZi-ca-Gi6">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="gr3-cm-wSC"/>
+                                    <constraint firstAttribute="width" constant="90" id="jzJ-Ki-fwe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="15"/>
+                                <state key="normal" title="Reverse">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="reverse:" destination="4Mh-bS-L3o" eventType="touchUpInside" id="9Nc-3X-5qe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwV-Qb-RYN">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="d6R-Fh-MnP"/>
+                                    <constraint firstAttribute="height" constant="56" id="xKX-1M-gzY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="15"/>
+                                <state key="normal" title="Forward">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="forward:" destination="4Mh-bS-L3o" eventType="touchUpInside" id="JBB-hz-wQB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qWi-Qv-Oie">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="TFM-MM-u0V"/>
+                                    <constraint firstAttribute="height" constant="56" id="qij-K8-q9y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="15"/>
+                                <state key="normal" title="Scroll To...">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="scrollTo:" destination="4Mh-bS-L3o" eventType="touchUpInside" id="EpF-7s-xEN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1554271579" green="0.22037371989999999" blue="0.29594033959999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="eo6-HN-Lcx" firstAttribute="top" secondItem="qWi-Qv-Oie" secondAttribute="bottom" constant="8" id="4JI-0u-xqx"/>
+                            <constraint firstItem="jZi-ca-Gi6" firstAttribute="leading" secondItem="GKi-HH-Zwy" secondAttribute="leadingMargin" constant="-9" id="AaC-gD-x5J"/>
+                            <constraint firstAttribute="centerX" secondItem="qWi-Qv-Oie" secondAttribute="centerX" id="PLu-WL-Rlo"/>
+                            <constraint firstItem="eo6-HN-Lcx" firstAttribute="top" secondItem="fwV-Qb-RYN" secondAttribute="bottom" constant="8" id="Ths-td-ZWF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fwV-Qb-RYN" secondAttribute="trailing" constant="-6" id="dlq-b7-Ng1"/>
+                            <constraint firstItem="eo6-HN-Lcx" firstAttribute="top" secondItem="jZi-ca-Gi6" secondAttribute="bottom" constant="8" id="sjX-z0-WuI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="forwardButton" destination="fwV-Qb-RYN" id="z8M-Jc-jek"/>
+                        <outlet property="reverseButton" destination="jZi-ca-Gi6" id="cmI-0C-Kpz"/>
+                        <outlet property="scrollToButton" destination="qWi-Qv-Oie" id="VUD-c2-4Dk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CEL-4F-wpf" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-101" y="-243"/>
+        </scene>
+        <!--Greeting View Controller-->
+        <scene sceneID="Jk0-dn-UOb">
+            <objects>
+                <viewController storyboardIdentifier="GreetingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uTZ-6M-KmC" customClass="GreetingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ktg-2q-8aV"/>
+                        <viewControllerLayoutGuide type="bottom" id="FO9-XU-urm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XCd-R8-pd9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Greetings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fj3-gj-tNV">
+                                <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="42"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1554271579" green="0.22037371989999999" blue="0.29594033959999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="Fj3-gj-tNV" secondAttribute="centerX" id="Jlh-8o-m06"/>
+                            <constraint firstAttribute="centerY" secondItem="Fj3-gj-tNV" secondAttribute="centerY" id="UXz-uY-dsM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="label" destination="Fj3-gj-tNV" id="1OA-ns-m5G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V3C-JT-1VG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="673" y="-243"/>
+        </scene>
+    </scenes>
+</document>
