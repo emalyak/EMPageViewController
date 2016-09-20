@@ -16,7 +16,7 @@ EMPageViewController is not a subclass of UIPageViewController. Instead, it's a 
 
 ## Compatibility
 * Xcode 7.0+
-* Swift 2.0+
+* Swift 3.0+
 * Objective-C compatible
 * iOS 7+
 * iPhone, iPad, and iPod Touch
@@ -45,15 +45,15 @@ Learn how to use EMPageViewController in your project by cloning this repository
 Full documentation is available on [CocoaDocs](http://cocoadocs.org/docsets/EMPageViewController)
 
 ### Classes
-* [EMPageViewController](http://cocoadocs.org/docsets/EMPageViewController/2.0.2/Classes/EMPageViewController.html)
+* [EMPageViewController](http://cocoadocs.org/docsets/EMPageViewController/3.0.0/Classes/EMPageViewController.html)
 
 ### Enums
-* [EMPageViewControllerNavigationDirection](http://cocoadocs.org/docsets/EMPageViewController/2.0.2/Enums/EMPageViewControllerNavigationDirection.html)
-* [EMPageViewControllerNavigationOrientation](http://cocoadocs.org/docsets/EMPageViewController/2.0.2/Enums/EMPageViewControllerNavigationOrientation.html)
+* [EMPageViewControllerNavigationDirection](http://cocoadocs.org/docsets/EMPageViewController/3.0.0/Enums/EMPageViewControllerNavigationDirection.html)
+* [EMPageViewControllerNavigationOrientation](http://cocoadocs.org/docsets/EMPageViewController/3.0.0/Enums/EMPageViewControllerNavigationOrientation.html)
 
 ### Protocols
-* [EMPageViewControllerDataSource](http://cocoadocs.org/docsets/EMPageViewController/2.0.2/Protocols/EMPageViewControllerDataSource.html)
-* [EMPageViewControllerDelegate](http://cocoadocs.org/docsets/EMPageViewController/2.0.2/Protocols/EMPageViewControllerDelegate.html)
+* [EMPageViewControllerDataSource](http://cocoadocs.org/docsets/EMPageViewController/3.0.0/Protocols/EMPageViewControllerDataSource.html)
+* [EMPageViewControllerDelegate](http://cocoadocs.org/docsets/EMPageViewController/3.0.0/Protocols/EMPageViewControllerDelegate.html)
 
 ## Contact
 
