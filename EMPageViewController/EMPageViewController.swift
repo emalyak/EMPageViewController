@@ -135,7 +135,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     /// The direction scrolling navigation occurs
     open private(set) var navigationOrientation: EMPageViewControllerNavigationOrientation = .horizontal
     
-    private var orientationIsHorizontal: Bool {
+    private var isOrientationHorizontal: Bool {
         return self.navigationOrientation == .horizontal
     }
 
@@ -147,8 +147,8 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         scrollView.scrollsToTop = false
         scrollView.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleLeftMargin]
         scrollView.bounces = true
-        scrollView.alwaysBounceHorizontal = self.orientationIsHorizontal
-        scrollView.alwaysBounceVertical = !self.orientationIsHorizontal
+        scrollView.alwaysBounceHorizontal = self.isOrientationHorizontal
+        scrollView.alwaysBounceVertical = !self.isOrientationHorizontal
         scrollView.translatesAutoresizingMaskIntoConstraints = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
@@ -202,56 +202,57 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
             self.afterViewController = viewController
             self.layoutViews()
             self.loadNewAdjoiningViewControllersOnFinish = true
-            self.scrollForwardAnimated(animated, completion: completion)
+            self.scrollForward(animated: animated, completion: completion)
         } else if (direction == .reverse) {
             self.beforeViewController = viewController
             self.layoutViews()
             self.loadNewAdjoiningViewControllersOnFinish = true
-            self.scrollReverseAnimated(animated, completion: completion)
+            self.scrollReverse(animated: animated, completion: completion)
         }
         
     }
     
+    
     /**
-        Transitions to the view controller right of the currently selected view controller in a horizontal orientation, or below the currently selected view controller in a vertical orientation. Also described as going to the next page.
-
-        - parameter animated: A Boolean whether or not to animate the transition
-        - parameter completion: A block that's called after the transition is finished. The block parameter `transitionSuccessful` is `true` if the transition to the selected view controller was completed successfully. If `false`, the transition returned to the view controller it started from.
-    */
-    open func scrollForwardAnimated(_ animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
+     Transitions to the view controller right of the currently selected view controller in a horizontal orientation, or below the currently selected view controller in a vertical orientation. Also described as going to the next page.
+     
+     - parameter animated: A Boolean whether or not to animate the transition
+     - parameter completion: A block that's called after the transition is finished. The block parameter `transitionSuccessful` is `true` if the transition to the selected view controller was completed successfully. If `false`, the transition returned to the view controller it started from.
+     */
+    open func scrollForward(animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
         
         if (self.afterViewController != nil) {
             
             // Cancel current animation and move
             if self.scrolling {
-                if self.orientationIsHorizontal {
+                if self.isOrientationHorizontal {
                     self.scrollView.setContentOffset(CGPoint(x: self.view.bounds.width * 2, y: 0), animated: false)
                 } else {
                     self.scrollView.setContentOffset(CGPoint(x: 0, y: self.view.bounds.height * 2), animated: false)
                 }
-
+                
             }
             
             self.didFinishScrollingCompletionHandler = completion
             self.transitionAnimated = animated
-            if self.orientationIsHorizontal {
+            if self.isOrientationHorizontal {
                 self.scrollView.setContentOffset(CGPoint(x: self.view.bounds.width * 2, y: 0), animated: animated)
             } else {
                 self.scrollView.setContentOffset(CGPoint(x: 0, y: self.view.bounds.height * 2), animated: animated)
             }
-
+            
         }
     }
     
     /**
-        Transitions to the view controller left of the currently selected view controller in a horizontal orientation, or above the currently selected view controller in a vertical orientation. Also described as going to the previous page.
-
-        - parameter animated: A Boolean whether or not to animate the transition
-        - parameter completion: A block that's called after the transition is finished. The block parameter `transitionSuccessful` is `true` if the transition to the selected view controller was completed successfully. If `false`, the transition returned to the view controller it started from.
+     Transitions to the view controller left of the currently selected view controller in a horizontal orientation, or above the currently selected view controller in a vertical orientation. Also described as going to the previous page.
+     
+     - parameter animated: A Boolean whether or not to animate the transition
+     - parameter completion: A block that's called after the transition is finished. The block parameter `transitionSuccessful` is `true` if the transition to the selected view controller was completed successfully. If `false`, the transition returned to the view controller it started from.
      */
-    open func scrollReverseAnimated(_ animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
+    open func scrollReverse(animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
         if (self.beforeViewController != nil) {
-
+            
             // Cancel current animation and move
             if self.scrolling {
                 self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
@@ -261,6 +262,17 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
             self.transitionAnimated = animated
             self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: animated)
         }
+    }
+    
+
+    @available(*, unavailable, renamed: "scrollForward(animated:completion:)")
+    open func scrollForwardAnimated(_ animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
+        self.scrollForward(animated: animated, completion: completion)
+    }
+
+    @available(*, unavailable, renamed: "scrollReverse(animated:completion:)")
+    open func scrollReverseAnimated(_ animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
+        self.scrollReverse(animated: animated, completion: completion)
     }
     
     
@@ -286,7 +298,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         }
         
         self.scrollView.frame = self.view.bounds
-        if self.orientationIsHorizontal {
+        if self.isOrientationHorizontal {
             self.scrollView.contentSize = CGSize(width: self.view.bounds.width * 3, height: self.view.bounds.height)
         } else {
             self.scrollView.contentSize = CGSize(width: self.view.bounds.width, height: self.view.bounds.height * 3)
@@ -319,12 +331,12 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
             
             // Load new before view controller if required
             if self.loadNewAdjoiningViewControllersOnFinish {
-                self.loadBeforeViewControllerForSelectedViewController(selectedViewController)
+                self.loadBeforeViewController(for: selectedViewController)
                 self.loadNewAdjoiningViewControllersOnFinish = false
             }
             
             // Load new after view controller
-            self.loadAfterViewControllerForSelectedViewController(selectedViewController)
+            self.loadAfterViewController(for: selectedViewController)
             
             
         // Scrolled reverse
@@ -346,12 +358,12 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
             
             // Load new after view controller if required
             if self.loadNewAdjoiningViewControllersOnFinish {
-                self.loadAfterViewControllerForSelectedViewController(selectedViewController)
+                self.loadAfterViewController(for: selectedViewController)
                 self.loadNewAdjoiningViewControllersOnFinish = false
             }
             
             // Load new before view controller
-            self.loadBeforeViewControllerForSelectedViewController(selectedViewController)
+            self.loadBeforeViewController(for: selectedViewController)
         
         // Scrolled but ended up where started
         } else if (selectedViewController == self.selectedViewController) {
@@ -383,9 +395,9 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
             
             if self.loadNewAdjoiningViewControllersOnFinish {
                 if (self.navigationDirection == .forward) {
-                    self.loadAfterViewControllerForSelectedViewController(selectedViewController)
+                    self.loadAfterViewController(for: selectedViewController)
                 } else if (self.navigationDirection == .reverse) {
-                    self.loadBeforeViewControllerForSelectedViewController(selectedViewController)
+                    self.loadBeforeViewController(for: selectedViewController)
                 }
             }
             
@@ -396,12 +408,12 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-    private func loadBeforeViewControllerForSelectedViewController(_ selectedViewController:UIViewController) {
+    private func loadBeforeViewController(for selectedViewController:UIViewController) {
         // Retreive the new before controller from the data source if available, otherwise set as nil
         self.beforeViewController = self.dataSource?.em_pageViewController(self, viewControllerBeforeViewController: selectedViewController)
     }
     
-    private func loadAfterViewControllerForSelectedViewController(_ selectedViewController:UIViewController) {
+    private func loadAfterViewController(for selectedViewController:UIViewController) {
         // Retreive the new after controller from the data source if available, otherwise set as nil
         self.afterViewController = self.dataSource?.em_pageViewController(self, viewControllerAfterViewController: selectedViewController)
     }
@@ -430,23 +442,23 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         var afterInset:CGFloat = 0
         
         if (self.beforeViewController == nil) {
-            beforeInset = self.orientationIsHorizontal ? -viewWidth : -viewHeight
+            beforeInset = self.isOrientationHorizontal ? -viewWidth : -viewHeight
         }
         
         if (self.afterViewController == nil) {
-            afterInset = self.orientationIsHorizontal ? -viewWidth : -viewHeight
+            afterInset = self.isOrientationHorizontal ? -viewWidth : -viewHeight
         }
         
         self.adjustingContentOffset = true
-        self.scrollView.contentOffset = CGPoint(x: self.orientationIsHorizontal ? viewWidth : 0, y: self.orientationIsHorizontal ? 0 : viewHeight)
-        if self.orientationIsHorizontal {
+        self.scrollView.contentOffset = CGPoint(x: self.isOrientationHorizontal ? viewWidth : 0, y: self.isOrientationHorizontal ? 0 : viewHeight)
+        if self.isOrientationHorizontal {
             self.scrollView.contentInset = UIEdgeInsetsMake(0, beforeInset, 0, afterInset)
         } else {
             self.scrollView.contentInset = UIEdgeInsetsMake(beforeInset, 0, afterInset, 0)
         }
         self.adjustingContentOffset = false
         
-        if self.orientationIsHorizontal {
+        if self.isOrientationHorizontal {
             self.beforeViewController?.view.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
             self.selectedViewController?.view.frame = CGRect(x: viewWidth, y: 0, width: viewWidth, height: viewHeight)
             self.afterViewController?.view.frame = CGRect(x: viewWidth * 2, y: 0, width: viewWidth, height: viewHeight)
@@ -461,7 +473,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Internal Callbacks
     
-    private func willScrollFromViewController(_ startingViewController: UIViewController?, destinationViewController: UIViewController) {
+    private func willScroll(from startingViewController: UIViewController?, to destinationViewController: UIViewController) {
         if (startingViewController != nil) {
             self.delegate?.em_pageViewController?(self, willStartScrollingFrom: startingViewController!, destinationViewController: destinationViewController)
         }
@@ -471,7 +483,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         self.addChildIfNeeded(destinationViewController)
     }
     
-    private func didFinishScrollingToViewController(_ viewController: UIViewController) {
+    private func didFinishScrolling(to viewController: UIViewController) {
         self.loadViewControllers(viewController)
         self.layoutViews()
     }
@@ -482,20 +494,20 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if !adjustingContentOffset {
         
-            let distance = self.orientationIsHorizontal ? self.view.bounds.width : self.view.bounds.height
-            let progress = ((self.orientationIsHorizontal ? scrollView.contentOffset.x : scrollView.contentOffset.y) - distance) / distance
+            let distance = self.isOrientationHorizontal ? self.view.bounds.width : self.view.bounds.height
+            let progress = ((self.isOrientationHorizontal ? scrollView.contentOffset.x : scrollView.contentOffset.y) - distance) / distance
             
             // Scrolling forward / after
             if (progress > 0) {
                 if (self.afterViewController != nil) {
                     if !scrolling { // call willScroll once
-                        self.willScrollFromViewController(self.selectedViewController, destinationViewController: self.afterViewController!)
+                        self.willScroll(from: self.selectedViewController, to: self.afterViewController!)
                         self.scrolling = true
                     }
                     
                     if self.navigationDirection == .reverse { // check if direction changed
-                        self.didFinishScrollingToViewController(self.selectedViewController!)
-                        self.willScrollFromViewController(self.selectedViewController, destinationViewController: self.afterViewController!)
+                        self.didFinishScrolling(to: self.selectedViewController!)
+                        self.willScroll(from: self.selectedViewController, to: self.afterViewController!)
                     }
                     
                     self.navigationDirection = .forward
@@ -509,13 +521,13 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
             } else if (progress < 0) {
                 if (self.beforeViewController != nil) {
                     if !scrolling { // call willScroll once
-                        self.willScrollFromViewController(self.selectedViewController, destinationViewController: self.beforeViewController!)
+                        self.willScroll(from: self.selectedViewController, to: self.beforeViewController!)
                         self.scrolling = true
                     }
                     
                     if self.navigationDirection == .forward { // check if direction changed
-                        self.didFinishScrollingToViewController(self.selectedViewController!)
-                        self.willScrollFromViewController(self.selectedViewController, destinationViewController: self.beforeViewController!)
+                        self.didFinishScrolling(to: self.selectedViewController!)
+                        self.willScroll(from: self.selectedViewController, to: self.beforeViewController!)
                     }
                     
                     self.navigationDirection = .reverse
@@ -536,11 +548,11 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
             
             // Thresholds to update view layouts call delegates
             if (progress >= 1 && self.afterViewController != nil) {
-                self.didFinishScrollingToViewController(self.afterViewController!)
+                self.didFinishScrolling(to: self.afterViewController!)
             } else if (progress <= -1  && self.beforeViewController != nil) {
-                self.didFinishScrollingToViewController(self.beforeViewController!)
+                self.didFinishScrolling(to: self.beforeViewController!)
             } else if (progress == 0  && self.selectedViewController != nil) {
-                self.didFinishScrollingToViewController(self.selectedViewController!)
+                self.didFinishScrolling(to: self.selectedViewController!)
             }
             
         }
@@ -555,7 +567,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         // setContentOffset is called to center the selected view after bounces
         // This prevents yucky behavior at the beginning and end of the page collection by making sure setContentOffset is called only if...
         
-        if self.orientationIsHorizontal {
+        if self.isOrientationHorizontal {
             if  (self.beforeViewController != nil && self.afterViewController != nil) || // It isn't at the beginning or end of the page collection
                 (self.afterViewController != nil && self.beforeViewController == nil && scrollView.contentOffset.x > fabs(scrollView.contentInset.left)) || // If it's at the beginning of the collection, the decelleration can't be triggered by scrolling away from, than torwards the inset
                 (self.beforeViewController != nil && self.afterViewController == nil && scrollView.contentOffset.x < fabs(scrollView.contentInset.right)) { // Same as the last condition, but at the end of the collection

@@ -55,11 +55,11 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     // MARK: - Convienient EMPageViewController scroll / transition methods
     
     @IBAction func forward(_ sender: AnyObject) {
-        self.pageViewController!.scrollForwardAnimated(true, completion: nil)
+        self.pageViewController!.scrollForward(animated: true, completion: nil)
     }
     
     @IBAction func reverse(_ sender: AnyObject) {
-        self.pageViewController!.scrollReverseAnimated(true, completion: nil)
+        self.pageViewController!.scrollReverse(animated: true, completion: nil)
     }
     
     @IBAction func scrollTo(_ sender: AnyObject) {
