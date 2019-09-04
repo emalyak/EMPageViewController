@@ -16,7 +16,7 @@ EMPageViewController is not a subclass of UIPageViewController. Instead, it's a 
 
 ## Compatibility
 * Xcode 7.0+
-* Swift 3.0+
+* Swift 4.2+
 * Objective-C compatible
 * iOS 7+
 * iPhone, iPad, and iPod Touch
