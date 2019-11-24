@@ -66,6 +66,6 @@ Full documentation is available on [CocoaDocs](http://cocoadocs.org/docsets/EMPa
 Feedback? Suggestions? Just want to say hello? Contact me anytime on Twitter [@emalyak](https://twitter.com/emalyak). You can also visit my website [erikmalyak.com](http://erikmalyak.com) for other ways to get in touch.
 
 ## License
-Copyright (c) 2015-2016 [Erik Malyak](http://erikmalyak.com)
+Copyright (c) 2015-2019 [Erik Malyak](http://erikmalyak.com)
 
 [MIT License](https://github.com/emalyak/EMPageViewController/blob/master/LICENSE)

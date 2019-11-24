@@ -44,9 +44,9 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         pageViewController.selectViewController(currentViewController, direction: .forward, animated: false, completion: nil)
         
         // Add EMPageViewController to the root view controller
-        self.addChildViewController(pageViewController)
+        self.addChild(pageViewController)
         self.view.insertSubview(pageViewController.view, at: 0) // Insert the page controller view below the navigation buttons
-        pageViewController.didMove(toParentViewController: self)
+        pageViewController.didMove(toParent: self)
         
         self.pageViewController = pageViewController
     }
@@ -64,7 +64,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     
     @IBAction func scrollTo(_ sender: AnyObject) {
         
-        let choiceViewController = UIAlertController(title: "Scroll To...", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let choiceViewController = UIAlertController(title: "Scroll To...", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
         let selectedIndex = self.index(of: self.pageViewController!.selectedViewController as! GreetingViewController)!
         
@@ -72,7 +72,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
             
             if (index != selectedIndex) {
             
-                let action = UIAlertAction(title: viewControllerGreeting, style: UIAlertActionStyle.default, handler: { (alertAction) in
+                let action = UIAlertAction(title: viewControllerGreeting, style: UIAlertAction.Style.default, handler: { (alertAction) in
                     
                     let viewController = self.viewController(at: index)!
                     
@@ -86,7 +86,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
             }
         }
         
-        let action = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+        let action = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
         choiceViewController.addAction(action)
         
         self.present(choiceViewController, animated: true, completion: nil)
@@ -126,7 +126,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
     
     func index(of viewController: GreetingViewController) -> Int? {
         if let greeting: String = viewController.greeting {
-            return self.greetings.index(of: greeting)
+            return self.greetings.firstIndex(of: greeting)
         } else {
             return nil
         }
@@ -140,7 +140,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         let startGreetingViewController = startViewController as! GreetingViewController
         let destinationGreetingViewController = destinationViewController as! GreetingViewController
         
-        print("Will start scrolling from \(startGreetingViewController.greeting) to \(destinationGreetingViewController.greeting).")
+        print("Will start scrolling from \(startGreetingViewController.greeting!) to \(destinationGreetingViewController.greeting!).")
     }
     
     func em_pageViewController(_ pageViewController: EMPageViewController, isScrollingFrom startViewController: UIViewController, destinationViewController: UIViewController, progress: CGFloat) {
@@ -148,11 +148,11 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
         let destinationGreetingViewController = destinationViewController as! GreetingViewController
         
         // Ease the labels' alphas in and out
-        let absoluteProgress = fabs(progress)
+        let absoluteProgress = abs(progress)
         startGreetingViewController.label.alpha = pow(1 - absoluteProgress, 2)
         destinationGreetingViewController.label.alpha = pow(absoluteProgress, 2)
         
-       print("Is scrolling from \(startGreetingViewController.greeting) to \(destinationGreetingViewController.greeting) with progress '\(progress)'.")
+       print("Is scrolling from \(startGreetingViewController.greeting!) to \(destinationGreetingViewController.greeting!) with progress '\(progress)'.")
     }
     
     func em_pageViewController(_ pageViewController: EMPageViewController, didFinishScrollingFrom startViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) {
@@ -176,7 +176,7 @@ class RootViewController: UIViewController, EMPageViewControllerDataSource, EMPa
             }
         }
         
-        print("Finished scrolling from \(startViewController?.greeting) to \(destinationViewController.greeting). Transition successful? \(transitionSuccessful)")
+        print("Finished scrolling from \(startViewController != nil ? startViewController!.greeting! : "nil") to \(destinationViewController.greeting!). Transition successful? \(transitionSuccessful)")
     }
     
 }
