@@ -127,10 +127,10 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     /// If the data source is `nil`, gesture based scrolling will be disabled and all view controllers must be provided through `selectViewController:direction:animated:completion:`.
     ///
     /// - important: If you are using a data source, make sure you set `dataSource` before calling `selectViewController:direction:animated:completion:`.
-    open weak var dataSource: EMPageViewControllerDataSource?
+    @objc open weak var dataSource: EMPageViewControllerDataSource?
     
     /// The object that receives messages throughout the navigation process of the page view controller.
-    open weak var delegate: EMPageViewControllerDelegate?
+    @objc open weak var delegate: EMPageViewControllerDelegate?
     
     /// The direction scrolling navigation occurs
     open private(set) var navigationOrientation: EMPageViewControllerNavigationOrientation = .horizontal
@@ -159,13 +159,13 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     private var beforeViewController: UIViewController?
     
     /// The currently selected view controller. Can be `nil` if no view controller is selected.
-    open private(set) var selectedViewController: UIViewController?
+    @objc open private(set) var selectedViewController: UIViewController?
     
     /// The view controller after the selected view controller.
     private var afterViewController: UIViewController?
     
     /// Boolean that indicates whether the page controller is currently in the process of scrolling.
-    open private(set) var scrolling = false
+    @objc open private(set) var scrolling = false
     
     /// The direction the page controller is scrolling towards.
     open private(set) var navigationDirection: EMPageViewControllerNavigationDirection?
@@ -196,7 +196,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         - parameter direction: The direction of the navigation and animation, if applicable.
         - parameter completion: A block that's called after the transition is finished. The block parameter `transitionSuccessful` is `true` if the transition to the selected view controller was completed successfully.
     */
-    open func selectViewController(_ viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
+    @objc open func selectViewController(_ viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
         
         if (direction == .forward) {
             self.afterViewController = viewController
