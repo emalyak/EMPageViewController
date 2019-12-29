@@ -310,6 +310,35 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let selectedViewController = self.selectedViewController {
+            selectedViewController.beginAppearanceTransition(true, animated: animated)
+        }
+    }
+
+     open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let selectedViewController = self.selectedViewController {
+            selectedViewController.endAppearanceTransition()
+        }
+    }
+
+     open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let selectedViewController = self.selectedViewController {
+            selectedViewController.beginAppearanceTransition(false, animated: animated)
+        }
+    }
+
+     open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let selectedViewController = self.selectedViewController {
+            selectedViewController.endAppearanceTransition()
+        }
+    }
+    
+    
     // MARK: - View Controller Management
     
     private func loadViewControllers(_ selectedViewController: UIViewController) {
