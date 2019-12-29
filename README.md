@@ -15,8 +15,8 @@ In addition to the ability scroll to any view controller, you can also easily sc
 EMPageViewController is not a subclass of UIPageViewController. Instead, it's a subclass of UIViewController with a UIScrollView, written in Swift, and it has common sense delegate and data source methods that will make the development of your page-based iOS app a breeze.
 
 ## Compatibility
-* Xcode 11.0+
-* Swift 5.0+
+* Xcode 10.0+
+* Swift 4.2+
 * Objective-C compatible
 * iOS 8+
 * iPhone, iPad, and iPod Touch
