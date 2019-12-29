@@ -188,5 +188,26 @@
     
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    // Code here will execute before the rotation begins.
+    // Equivalent to placing it in the deprecated method -[willRotateToInterfaceOrientation:duration:]
+    
+    // Disable scrolling in our swipe navigation to prevent layout issues.
+    [self.pageViewController.scrollView setScrollEnabled:NO];
+    self.pageViewController.adjustingContentOffset = YES;
+    NSLog(@"ROTATING WILL START");
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        // Code here will execute after the rotation has finished.
+        // Equivalent to placing it in the deprecated method -[didRotateFromInterfaceOrientation:]
+        
+        // Enable scrolling once rotating finishes so we can use swipe navigation.
+        [self.pageViewController.scrollView setScrollEnabled:YES];
+        self.pageViewController.adjustingContentOffset = NO;
+        NSLog(@"ROTATING FINISHED ");
+    }];
+}
 
 @end

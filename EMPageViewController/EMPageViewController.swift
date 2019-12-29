@@ -170,7 +170,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     /// The direction the page controller is scrolling towards.
     open private(set) var navigationDirection: EMPageViewControllerNavigationDirection?
     
-    private var adjustingContentOffset = false // Flag used to prevent isScrolling delegate when shifting scrollView
+    public var adjustingContentOffset = false // Flag used to prevent isScrolling delegate when shifting scrollView
     private var loadNewAdjoiningViewControllersOnFinish = false
     private var didFinishScrollingCompletionHandler: ((_ transitionSuccessful: Bool) -> Void)?
     private var transitionAnimated = false // Used for accurate view appearance messages
