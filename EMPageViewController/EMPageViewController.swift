@@ -219,9 +219,9 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         self.removeChildIfNeeded(selectedViewController, shouldEndAppearanceTransition: false)
         self.removeChildIfNeeded(afterViewController, shouldEndAppearanceTransition: false)
 
-        beforeViewController = nil
-        selectedViewController = nil
-        afterViewController = nil
+        self.beforeViewController = nil
+        self.selectedViewController = nil
+        self.afterViewController = nil
     }
     
     /**
@@ -324,7 +324,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     open override func viewWillAppear(_ animated: Bool) {
         print("[EMPageViewController] viewWillAppear")
         super.viewWillAppear(animated)
-        beginAppearanceTransition(for: selectedViewController, isAppearing: true, animated: animated)
+        self.beginAppearanceTransition(for: self.selectedViewController, isAppearing: true, animated: animated)
     }
 
      open override func viewDidAppear(_ animated: Bool) {
