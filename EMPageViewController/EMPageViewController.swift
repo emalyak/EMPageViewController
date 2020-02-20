@@ -211,7 +211,16 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         }
         
     }
-    
+
+    open func removeAllViewControllers() {
+        self.removeChildIfNeeded(beforeViewController, shouldEndAppearanceTransition: false)
+        self.removeChildIfNeeded(selectedViewController, shouldEndAppearanceTransition: false)
+        self.removeChildIfNeeded(afterViewController, shouldEndAppearanceTransition: false)
+
+        beforeViewController = nil
+        selectedViewController = nil
+        afterViewController = nil
+    }
     
     /**
      Transitions to the view controller right of the currently selected view controller in a horizontal orientation, or below the currently selected view controller in a vertical orientation. Also described as going to the next page.
