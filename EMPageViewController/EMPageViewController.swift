@@ -156,13 +156,13 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     /// The view controller before the selected view controller.
-    open private(set) var beforeViewController: UIViewController?
+    @objc open private(set) var beforeViewController: UIViewController?
     
     /// The currently selected view controller. Can be `nil` if no view controller is selected.
-    open private(set) var selectedViewController: UIViewController?
+    @objc open private(set) var selectedViewController: UIViewController?
     
     /// The view controller after the selected view controller.
-    open private(set) var afterViewController: UIViewController?
+    @objc open private(set) var afterViewController: UIViewController?
     
     /// Boolean that indicates whether the page controller is currently in the process of scrolling.
     @objc open private(set) var scrolling = false
@@ -197,7 +197,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         - parameter direction: The direction of the navigation and animation, if applicable.
         - parameter completion: A block that's called after the transition is finished. The block parameter `transitionSuccessful` is `true` if the transition to the selected view controller was completed successfully.
     */
-    open func selectViewController(_ viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
+    @objc open func selectViewController(_ viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
         guard self.selectedViewController != viewController else { return }
         
         if (direction == .forward) {
@@ -214,7 +214,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         
     }
 
-    open func removeAllViewControllers() {
+    @objc open func removeAllViewControllers() {
         self.removeChildIfNeeded(beforeViewController, shouldEndAppearanceTransition: false)
         self.removeChildIfNeeded(selectedViewController, shouldEndAppearanceTransition: false)
         self.removeChildIfNeeded(afterViewController, shouldEndAppearanceTransition: false)
