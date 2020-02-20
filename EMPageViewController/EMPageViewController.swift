@@ -305,7 +305,7 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        guard !scrolling else {
+        guard !self.scrolling else {
             return
         }
         
