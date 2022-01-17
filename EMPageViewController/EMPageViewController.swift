@@ -152,6 +152,9 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         scrollView.translatesAutoresizingMaskIntoConstraints = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
+        if #available(iOS 11.0, *) {
+            scrollView.contentInsetAdjustmentBehavior = .never
+        }
         return scrollView
     }()
     
