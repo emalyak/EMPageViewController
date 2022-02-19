@@ -215,6 +215,17 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
+    /**
+     allow load after ViewController when new data added to dataSource
+     */
+    @objc open func loadAfterViewControllerIfPossible() {
+        guard nil == afterViewController,
+              let current = selectedViewController else { return }
+        loadAfterViewController(for: current)
+        if nil != afterViewController {
+            layoutViews()
+        }
+    }
     
     /**
      Transitions to the view controller right of the currently selected view controller in a horizontal orientation, or below the currently selected view controller in a vertical orientation. Also described as going to the next page.
