@@ -97,6 +97,8 @@ import UIKit
         - parameter transitionSuccessful: A Boolean whether the transition to the destination view controller was successful or not. If `true`, the new selected view controller is `destinationViewController`. If `false`, the transition returned to the view controller it started from, so the selected view controller is still `startingViewController`.
     */
     @objc optional func em_pageViewController(_ pageViewController: EMPageViewController, didFinishScrollingFrom startingViewController: UIViewController?, destinationViewController:UIViewController, transitionSuccessful: Bool)
+    
+    @objc optional func em_pageViewController(_ pageViewController: EMPageViewController, scrollViewDidEndDragging: UIScrollView, willDecelerate decelerate: Bool)
 }
 
 /**
@@ -627,4 +629,9 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         }
         
     }
+    
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        delegate?.em_pageViewController?(self, scrollViewDidEndDragging: scrollView, willDecelerate: decelerate)
+    }
+    
 }
