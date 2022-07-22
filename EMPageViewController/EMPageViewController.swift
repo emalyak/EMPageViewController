@@ -161,13 +161,13 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     /// The view controller before the selected view controller.
-    private var beforeViewController: UIViewController?
+    @objc private(set) var beforeViewController: UIViewController?
     
     /// The currently selected view controller. Can be `nil` if no view controller is selected.
     @objc open private(set) var selectedViewController: UIViewController?
     
     /// The view controller after the selected view controller.
-    private var afterViewController: UIViewController?
+    @objc private(set) var afterViewController: UIViewController?
     
     /// Boolean that indicates whether the page controller is currently in the process of scrolling.
     @objc open private(set) var scrolling = false
@@ -225,6 +225,18 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
               let current = selectedViewController else { return }
         loadAfterViewController(for: current)
         if nil != afterViewController {
+            layoutViews()
+        }
+    }
+    
+    /**
+     allow load before ViewController when new data added to dataSource
+     */
+    @objc open func loadBeforeViewControllerIfPossible() {
+        guard nil == beforeViewController,
+              let current = selectedViewController else { return }
+        loadBeforeViewController(for: current)
+        if nil != beforeViewController {
             layoutViews()
         }
     }
