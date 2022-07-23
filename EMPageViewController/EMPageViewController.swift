@@ -97,6 +97,8 @@ import UIKit
         - parameter transitionSuccessful: A Boolean whether the transition to the destination view controller was successful or not. If `true`, the new selected view controller is `destinationViewController`. If `false`, the transition returned to the view controller it started from, so the selected view controller is still `startingViewController`.
     */
     @objc optional func em_pageViewController(_ pageViewController: EMPageViewController, didFinishScrollingFrom startingViewController: UIViewController?, destinationViewController:UIViewController, transitionSuccessful: Bool)
+    
+    @objc optional func em_pageViewController(_ pageViewController: EMPageViewController, scrollViewDidEndDragging: UIScrollView, willDecelerate decelerate: Bool)
 }
 
 /**
@@ -152,17 +154,20 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         scrollView.translatesAutoresizingMaskIntoConstraints = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
+        if #available(iOS 11.0, *) {
+            scrollView.contentInsetAdjustmentBehavior = .never
+        }
         return scrollView
     }()
     
     /// The view controller before the selected view controller.
-    private var beforeViewController: UIViewController?
+    @objc open private(set) var beforeViewController: UIViewController?
     
     /// The currently selected view controller. Can be `nil` if no view controller is selected.
     @objc open private(set) var selectedViewController: UIViewController?
     
     /// The view controller after the selected view controller.
-    private var afterViewController: UIViewController?
+    @objc open private(set) var afterViewController: UIViewController?
     
     /// Boolean that indicates whether the page controller is currently in the process of scrolling.
     @objc open private(set) var scrolling = false
@@ -212,6 +217,29 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
+    /**
+     allow load after ViewController when new data added to dataSource
+     */
+    @objc open func loadAfterViewControllerIfPossible() {
+        guard nil == afterViewController,
+              let current = selectedViewController else { return }
+        loadAfterViewController(for: current)
+        if nil != afterViewController {
+            layoutViews()
+        }
+    }
+    
+    /**
+     allow load before ViewController when new data added to dataSource
+     */
+    @objc open func loadBeforeViewControllerIfPossible() {
+        guard nil == beforeViewController,
+              let current = selectedViewController else { return }
+        loadBeforeViewController(for: current)
+        if nil != beforeViewController {
+            layoutViews()
+        }
+    }
     
     /**
      Transitions to the view controller right of the currently selected view controller in a horizontal orientation, or below the currently selected view controller in a vertical orientation. Also described as going to the next page.
@@ -613,4 +641,9 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
         }
         
     }
+    
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        delegate?.em_pageViewController?(self, scrollViewDidEndDragging: scrollView, willDecelerate: decelerate)
+    }
+    
 }
