@@ -204,12 +204,18 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     @objc open func selectViewController(_ viewController: UIViewController, direction: EMPageViewControllerNavigationDirection, animated: Bool, completion: ((_ transitionSuccessful: Bool) -> Void)?) {
         
         if (direction == .forward) {
-            self.afterViewController = viewController
+            if afterViewController != viewController {
+                removeChildIfNeeded(afterViewController)
+                afterViewController = viewController
+            }
             self.layoutViews()
             self.loadNewAdjoiningViewControllersOnFinish = true
             self.scrollForward(animated: animated, completion: completion)
         } else if (direction == .reverse) {
-            self.beforeViewController = viewController
+            if beforeViewController != viewController {
+                removeChildIfNeeded(beforeViewController)
+                beforeViewController = viewController
+            }
             self.layoutViews()
             self.loadNewAdjoiningViewControllersOnFinish = true
             self.scrollReverse(animated: animated, completion: completion)
@@ -218,10 +224,23 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     /**
-     allow load after ViewController when new data added to dataSource
+     remove all controllers, so that can be reloaded
+     */
+    @objc open func removeViewControllers() {
+        guard !scrolling else { return }
+        removeChildIfNeeded(beforeViewController)
+        removeChildIfNeeded(afterViewController)
+        removeChildIfNeeded(selectedViewController)
+        beforeViewController = nil
+        afterViewController = nil
+        selectedViewController = nil
+    }
+    
+    /**
+     allow load after ViewController when new data added to dataSource, call this method when scrolling is false
      */
     @objc open func loadAfterViewControllerIfPossible() {
-        guard nil == afterViewController,
+        guard !scrolling, nil == afterViewController,
               let current = selectedViewController else { return }
         loadAfterViewController(for: current)
         if nil != afterViewController {
@@ -230,10 +249,10 @@ open class EMPageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     /**
-     allow load before ViewController when new data added to dataSource
+     allow load before ViewController when new data added to dataSource, call this method when scrolling is false
      */
     @objc open func loadBeforeViewControllerIfPossible() {
-        guard nil == beforeViewController,
+        guard !scrolling, nil == beforeViewController,
               let current = selectedViewController else { return }
         loadBeforeViewController(for: current)
         if nil != beforeViewController {
